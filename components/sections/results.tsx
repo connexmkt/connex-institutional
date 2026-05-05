@@ -1,16 +1,17 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { Users, Heart, ShoppingBag, Repeat, TrendingUp } from "lucide-react"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { Users, Heart, ShoppingBag, Repeat, TrendingUp } from "lucide-react";
 
 const funnelSteps = [
   {
     icon: Users,
     title: "Atração",
     subtitle: "Leads",
-    description: "Captação de potenciais clientes através de conteúdo e campanhas",
+    description:
+      "Captação de potenciais clientes através de conteúdo e campanhas",
     width: "100%",
   },
   {
@@ -41,7 +42,7 @@ const funnelSteps = [
     description: "Crescimento sustentável e escalável do seu negócio",
     width: "40%",
   },
-]
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -51,7 +52,7 @@ const containerVariants = {
       staggerChildren: 0.12,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, x: -30 },
@@ -60,11 +61,11 @@ const itemVariants = {
     x: 0,
     transition: { duration: 0.5 },
   },
-}
+};
 
 export function ResultsSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="resultados" className="py-24 md:py-32">
@@ -138,5 +139,5 @@ export function ResultsSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

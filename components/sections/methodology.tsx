@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { MessageSquare, Lightbulb, Wrench, BarChart3 } from "lucide-react"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { MessageSquare, Lightbulb, Wrench, BarChart3 } from "lucide-react";
 
 const steps = [
   {
@@ -34,7 +34,7 @@ const steps = [
     description:
       "Conteúdos vão ao ar e monitoramos resultados para otimização contínua.",
   },
-]
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -44,7 +44,7 @@ const containerVariants = {
       staggerChildren: 0.15,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -53,11 +53,11 @@ const itemVariants = {
     y: 0,
     transition: { duration: 0.6 },
   },
-}
+};
 
 export function MethodologySection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="metodologia" className="py-24 md:py-32">
@@ -86,7 +86,7 @@ export function MethodologySection() {
           <div className="relative">
             {/* Connection line - desktop */}
             <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-border -translate-y-1/2" />
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
               {steps.map((step, index) => (
                 <motion.div
@@ -100,14 +100,14 @@ export function MethodologySection() {
                     <div className="absolute -top-4 left-6 bg-primary text-primary-foreground text-sm font-bold px-3 py-1 rounded-full">
                       {step.number}
                     </div>
-                    
+
                     {/* Icon */}
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mt-4 mb-4">
                       <step.icon className="w-6 h-6 text-primary" />
                     </div>
-                    
+
                     <h3 className="text-lg font-semibold mb-3">{step.title}</h3>
-                    
+
                     <p className="text-muted-foreground text-sm leading-relaxed">
                       {step.description}
                     </p>
@@ -138,5 +138,5 @@ export function MethodologySection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

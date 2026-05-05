@@ -1,36 +1,52 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { FileText, Palette, Camera, Rocket } from "lucide-react"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { FileText, Palette, Camera, Rocket } from "lucide-react";
 
 const weeks = [
   {
     week: 1,
     title: "Início",
     icon: FileText,
-    items: ["Assinatura do contrato", "Criação do grupo de trabalho", "Reunião de Kick-off"],
+    items: [
+      "Assinatura do contrato",
+      "Criação do grupo de trabalho",
+      "Reunião de Kick-off",
+    ],
   },
   {
     week: 2,
     title: "Definição",
     icon: Palette,
-    items: ["Definição da linha editorial", "Aprovação da identidade visual", "Alinhamento estratégico"],
+    items: [
+      "Definição da linha editorial",
+      "Aprovação da identidade visual",
+      "Alinhamento estratégico",
+    ],
   },
   {
     week: 3,
     title: "Produção",
     icon: Camera,
-    items: ["Produção do primeiro lote de conteúdos", "Revisão e aprovação", "Ajustes finais"],
+    items: [
+      "Produção do primeiro lote de conteúdos",
+      "Revisão e aprovação",
+      "Ajustes finais",
+    ],
   },
   {
     week: 4,
     title: "Lançamento",
     icon: Rocket,
-    items: ["Posts e campanhas entram no ar", "Início do monitoramento", "Otimização contínua"],
+    items: [
+      "Posts e campanhas entram no ar",
+      "Início do monitoramento",
+      "Otimização contínua",
+    ],
   },
-]
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -40,7 +56,7 @@ const containerVariants = {
       staggerChildren: 0.15,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -49,11 +65,11 @@ const itemVariants = {
     y: 0,
     transition: { duration: 0.6 },
   },
-}
+};
 
 export function TimelineSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="cronograma" className="py-24 md:py-32 bg-secondary">
@@ -125,5 +141,5 @@ export function TimelineSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

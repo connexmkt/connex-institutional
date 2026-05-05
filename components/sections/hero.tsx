@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { ChevronDown } from "lucide-react"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-primary/10 animate-gradient" />
-      
+
       {/* Floating orbs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -84,9 +84,9 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty"
           >
-            Transformamos sua presença digital em resultados reais. 
-            Estratégias de marketing que conectam sua empresa aos clientes certos, 
-            no momento certo.
+            Transformamos sua presença digital em resultados reais. Estratégias
+            de marketing que conectam sua empresa aos clientes certos, no
+            momento certo.
           </motion.p>
 
           {/* CTAs */}
@@ -99,7 +99,12 @@ export function HeroSection() {
             <Button size="lg" className="text-base px-8" asChild>
               <a href="#contato">Quero começar</a>
             </Button>
-            <Button size="lg" variant="outline" className="text-base px-8" asChild>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-base px-8"
+              asChild
+            >
               <a href="#metodologia">Ver como funciona</a>
             </Button>
           </motion.div>
@@ -124,5 +129,5 @@ export function HeroSection() {
         </motion.a>
       </motion.div>
     </section>
-  )
+  );
 }

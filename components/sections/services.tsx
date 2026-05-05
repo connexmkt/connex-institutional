@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { Palette, Globe, Target } from "lucide-react"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { Palette, Globe, Target } from "lucide-react";
 
 const services = [
   {
@@ -24,7 +24,7 @@ const services = [
     description:
       "Estratégias de tráfego pago e orgânico com teses bem definidas para atrair leads ativos e passivos qualificados.",
   },
-]
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -34,7 +34,7 @@ const containerVariants = {
       staggerChildren: 0.2,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -43,11 +43,11 @@ const itemVariants = {
     y: 0,
     transition: { duration: 0.6 },
   },
-}
+};
 
 export function ServicesSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="servicos" className="py-24 md:py-32 bg-secondary">
@@ -68,7 +68,8 @@ export function ServicesSection() {
               O que fazemos
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Soluções completas de marketing digital para impulsionar seu negócio
+              Soluções completas de marketing digital para impulsionar seu
+              negócio
             </p>
           </motion.div>
 
@@ -83,14 +84,16 @@ export function ServicesSection() {
               >
                 {/* Glow effect on hover */}
                 <div className="absolute inset-0 rounded-2xl bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 <div className="relative">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                     <service.icon className="w-7 h-7 text-primary" />
                   </div>
-                  
-                  <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
-                  
+
+                  <h3 className="text-xl font-semibold mb-4">
+                    {service.title}
+                  </h3>
+
                   <p className="text-muted-foreground leading-relaxed">
                     {service.description}
                   </p>
@@ -101,5 +104,5 @@ export function ServicesSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

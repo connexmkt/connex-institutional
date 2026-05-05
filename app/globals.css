@@ -1,28 +1,28 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #F5F2EE;
+  --background: #f5f2ee;
   --foreground: #161622;
   --card: #ffffff;
   --card-foreground: #161622;
   --popover: #ffffff;
   --popover-foreground: #161622;
-  --primary: #5B5FE8;
+  --primary: #5b5fe8;
   --primary-foreground: #ffffff;
-  --secondary: #F5F2EE;
+  --secondary: #f5f2ee;
   --secondary-foreground: #161622;
   --muted: #e8e5e0;
   --muted-foreground: #6b6b7a;
-  --accent: #5B5FE8;
+  --accent: #5b5fe8;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: #ffffff;
   --border: #d8d5d0;
   --input: #d8d5d0;
-  --ring: #5B5FE8;
+  --ring: #5b5fe8;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -33,24 +33,24 @@
 
 .dark {
   --background: #161622;
-  --foreground: #F5F2EE;
+  --foreground: #f5f2ee;
   --card: #1e1e2e;
-  --card-foreground: #F5F2EE;
+  --card-foreground: #f5f2ee;
   --popover: #1e1e2e;
-  --popover-foreground: #F5F2EE;
-  --primary: #5B5FE8;
+  --popover-foreground: #f5f2ee;
+  --primary: #5b5fe8;
   --primary-foreground: #ffffff;
   --secondary: #252535;
-  --secondary-foreground: #F5F2EE;
+  --secondary-foreground: #f5f2ee;
   --muted: #252535;
   --muted-foreground: #9090a0;
-  --accent: #5B5FE8;
+  --accent: #5b5fe8;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: #ffffff;
   --border: #303045;
   --input: #303045;
-  --ring: #5B5FE8;
+  --ring: #5b5fe8;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -59,8 +59,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Space Grotesk', 'DM Sans', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', monospace;
+  --font-sans: "Space Grotesk", "DM Sans", system-ui, sans-serif;
+  --font-mono: "Geist Mono", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -105,7 +105,8 @@
 
 /* Gradient mesh animation */
 @keyframes gradient-shift {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {

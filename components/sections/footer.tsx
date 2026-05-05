@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { ConnexLogo } from "@/components/connex-logo"
-import { Instagram, Linkedin, Mail, MapPin } from "lucide-react"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { ConnexLogo } from "@/components/connex-logo";
+import { Instagram, Linkedin, Mail, MapPin } from "lucide-react";
 
 const footerLinks = [
   { href: "#servicos", label: "Serviços" },
   { href: "#metodologia", label: "Metodologia" },
   { href: "#cronograma", label: "Cronograma" },
   { href: "#contato", label: "Contato" },
-]
+];
 
 const socialLinks = [
   { href: "#", icon: Instagram, label: "Instagram" },
   { href: "#", icon: Linkedin, label: "LinkedIn" },
   { href: "mailto:contato@connex.com.br", icon: Mail, label: "Email" },
-]
+];
 
 export function Footer() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
     <footer className="bg-secondary border-t border-border">
@@ -38,9 +38,10 @@ export function Footer() {
             <div className="lg:col-span-2">
               <ConnexLogo width={100} height={32} />
               <p className="text-muted-foreground mt-4 max-w-sm">
-                Conectamos sua marca ao que realmente importa: clientes, resultados e crescimento sustentável.
+                Conectamos sua marca ao que realmente importa: clientes,
+                resultados e crescimento sustentável.
               </p>
-              
+
               {/* Location */}
               <div className="flex items-center gap-2 mt-6 text-muted-foreground">
                 <MapPin className="w-4 h-4" />
@@ -94,5 +95,5 @@ export function Footer() {
         </motion.div>
       </div>
     </footer>
-  )
+  );
 }

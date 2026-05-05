@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Check } from "lucide-react"
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Check } from "lucide-react";
 
 export function CTASection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [email, setEmail] = useState("")
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
+    e.preventDefault();
+    if (!email) return;
 
-    setIsLoading(true)
+    setIsLoading(true);
     // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsSubmitted(true)
-    setIsLoading(false)
-  }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsSubmitted(true);
+    setIsLoading(false);
+  };
 
   return (
     <section id="contato" className="relative py-24 md:py-32 overflow-hidden">
       {/* Dark background with noise texture */}
       <div className="absolute inset-0 bg-[#161622] noise" />
-      
+
       {/* Gradient accent */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10" />
 
@@ -44,9 +44,10 @@ export function CTASection() {
             Pronto para conectar sua marca ao{" "}
             <span className="text-primary">crescimento</span>?
           </h2>
-          
+
           <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto">
-            Entre em contato e descubra como podemos transformar sua presença digital em resultados reais.
+            Entre em contato e descubra como podemos transformar sua presença
+            digital em resultados reais.
           </p>
 
           {isSubmitted ? (
@@ -61,7 +62,10 @@ export function CTASection() {
               <span>Obrigado! Entraremos em contato em breve.</span>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+            >
               <input
                 type="email"
                 placeholder="Seu melhor e-mail"
@@ -90,5 +94,5 @@ export function CTASection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

@@ -40,10 +40,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F5F2EE" },
-    { media: "(prefers-color-scheme: dark)", color: "#161622" },
-  ],
+  themeColor: "#161622",
   width: "device-width",
   initialScale: 1,
 };
@@ -54,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="bg-background">
+    <html lang="pt-BR" className="dark bg-background">
       <body
         className={`${spaceGrotesk.variable} ${dmSans.variable} font-sans antialiased`}
       >

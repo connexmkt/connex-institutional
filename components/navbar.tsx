@@ -1,30 +1,29 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
-import { ConnexLogo } from "./connex-logo"
-import { ThemeToggle } from "./theme-toggle"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { ConnexLogo } from "./connex-logo";
+import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { href: "#servicos", label: "Serviços" },
   { href: "#metodologia", label: "Metodologia" },
   { href: "#cronograma", label: "Cronograma" },
   { href: "#resultados", label: "Resultados" },
-]
+];
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <motion.header
@@ -54,7 +53,6 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <ThemeToggle />
           <Button asChild>
             <a href="#contato">Fale conosco</a>
           </Button>
@@ -62,13 +60,16 @@ export function Navbar() {
 
         {/* Mobile Menu Button */}
         <div className="flex md:hidden items-center gap-2">
-          <ThemeToggle />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="p-2 text-foreground"
             aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </nav>
@@ -103,5 +104,5 @@ export function Navbar() {
         )}
       </AnimatePresence>
     </motion.header>
-  )
+  );
 }

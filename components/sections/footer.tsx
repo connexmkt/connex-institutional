@@ -45,7 +45,9 @@ export function Footer() {
               {/* Location */}
               <div className="flex items-center gap-2 mt-6 text-muted-foreground">
                 <MapPin className="w-4 h-4" />
-                <span className="text-sm">Natal, RN — Brasil</span>
+                <span className="text-sm">Natal, RN</span>
+                <MapPin className="w-4 h-4" />
+                <span className="text-sm">Brasília, DF</span>
               </div>
             </div>
 
@@ -86,10 +88,7 @@ export function Footer() {
           {/* Bottom bar */}
           <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Connex. Todos os direitos reservados.
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Feito com 💙 em Natal, RN
+              © Connex 2026 - Todos os direitos reservados.
             </p>
           </div>
         </motion.div>

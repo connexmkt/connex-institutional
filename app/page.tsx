@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/navbar";
-import { HeroSection } from "@/components/sections/hero";
+import { HeroSection } from "@/components/HeroSection";
 import { ServicesSection } from "@/components/sections/services";
 import { MethodologySection } from "@/components/sections/methodology";
 import { TimelineSection } from "@/components/sections/timeline";

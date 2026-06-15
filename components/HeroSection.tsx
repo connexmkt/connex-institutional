@@ -1,154 +1,102 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { heroVideos } from "@/lib/heroVideos";
 
-interface VideoCellProps {
-  src: string | undefined;
-  preload?: "auto" | "none" | "metadata";
-  reducedMotion: boolean;
-  className?: string;
-}
+type PhrasePart = { text: string; highlight: boolean };
 
-function VideoCell({
-  src,
-  preload = "none",
-  reducedMotion,
-  className = "",
-}: VideoCellProps) {
-  if (!src) {
-    return <div className={`bg-black ${className}`} />;
-  }
+const PHRASES: PhrasePart[][] = [
+  [
+    { text: "Sua ", highlight: false },
+    { text: "marca", highlight: true },
+    { text: " conectada ao que ", highlight: false },
+    { text: "importa", highlight: true },
+  ],
+  [
+    { text: "Marketing que ", highlight: false },
+    { text: "conecta", highlight: true },
+  ],
+  [
+    { text: "Tecnologia que ", highlight: false },
+    { text: "inova", highlight: true },
+  ],
+];
 
-  return (
-    <div className={`overflow-hidden ${className}`}>
-      <video
-        src={src}
-        autoPlay={!reducedMotion}
-        muted
-        loop={!reducedMotion}
-        playsInline
-        preload={preload}
-        className="w-full h-full object-cover"
-      />
-    </div>
-  );
-}
+const INTERVAL_MS = 3500;
 
 export function HeroSection() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) =>
-      setPrefersReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    if (mq.matches && videoRef.current) {
+      videoRef.current.pause();
+    }
   }, []);
 
-  const v = (index: number): string | undefined => heroVideos[index];
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % PHRASES.length);
+    }, INTERVAL_MS);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
-      {/* Video Grid Background */}
-      <div className="absolute inset-0">
-        {/* Mobile: single fullscreen cell */}
-        <div className="h-full md:hidden">
-          <VideoCell
-            src={v(0)}
-            preload="auto"
-            reducedMotion={prefersReducedMotion}
-            className="h-full"
-          />
+      <video
+        ref={videoRef}
+        src="/background2.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        // Adicionado scale-[1.05] (ou scale-105) e transform-gpu para performance
+        className="absolute top-0 left-0 w-full h-full object-cover object-right z-0 scale-[1.05] transform-gpu"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
+
+      <div className="absolute inset-0 z-20 grid grid-cols-1 lg:grid-cols-2">
+        <div className="flex flex-col items-start justify-center px-8 md:px-16 lg:px-20">
+          <h1 className="text-7xl md:text-8xl lg:text-[10rem] font-bold text-white leading-none tracking-tight">
+            Connex
+          </h1>
+
+          <div className="mt-4 h-12 md:h-14 lg:h-16 overflow-hidden relative">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.45, ease: "easeInOut" }}
+                className="text-xl md:text-2xl lg:text-3xl font-sans font-light text-white/90 tracking-wide whitespace-nowrap"
+              >
+                {PHRASES[index].map((part, i) =>
+                  part.highlight ? (
+                    <span key={i} className="text-primary font-medium">
+                      {part.text}
+                    </span>
+                  ) : (
+                    <span key={i}>{part.text}</span>
+                  )
+                )}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
+          <Button
+            size="lg"
+            className="mt-10 px-10 text-base bg-primary hover:bg-primary/90 text-white"
+            asChild
+          >
+            <a href="#contato">Fale com a gente</a>
+          </Button>
         </div>
 
-        {/* Tablet: 2-column simplified grid */}
-        <div className="hidden md:grid md:grid-cols-2 md:grid-rows-2 lg:hidden h-full">
-          <VideoCell
-            src={v(0)}
-            preload="auto"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-1 row-start-1 row-span-2"
-          />
-          <VideoCell
-            src={v(1)}
-            preload="none"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-2 row-start-1"
-          />
-          <VideoCell
-            src={v(2)}
-            preload="none"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-2 row-start-2"
-          />
-        </div>
-
-        {/* Desktop: 3-column mosaic grid */}
-        <div className="hidden lg:grid lg:grid-cols-3 lg:grid-rows-3 h-full">
-          {/* Column 1 — large (rows 1–2) */}
-          <VideoCell
-            src={v(0)}
-            preload="none"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-1 row-start-1 row-span-2"
-          />
-          {/* Column 1 — small (row 3) */}
-          <VideoCell
-            src={v(1)}
-            preload="none"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-1 row-start-3"
-          />
-          {/* Column 2 — full height (rows 1–3), eager load */}
-          <VideoCell
-            src={v(2)}
-            preload="auto"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-2 row-start-1 row-span-3"
-          />
-          {/* Column 3 — three equal rows */}
-          <VideoCell
-            src={v(3)}
-            preload="none"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-3 row-start-1"
-          />
-          <VideoCell
-            src={v(4)}
-            preload="none"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-3 row-start-2"
-          />
-          <VideoCell
-            src={v(5)}
-            preload="none"
-            reducedMotion={prefersReducedMotion}
-            className="col-start-3 row-start-3"
-          />
-        </div>
-      </div>
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/40 z-10" />
-
-      {/* Centered content */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6">
-        <h1 className="text-7xl md:text-8xl lg:text-[10rem] font-bold text-white leading-none tracking-tight">
-          Connex
-        </h1>
-        <p className="mt-4 text-xl md:text-2xl lg:text-3xl font-serif italic text-white/85 tracking-wide">
-          Sua marca conectada ao que importa
-        </p>
-        <Button
-          size="lg"
-          className="mt-10 px-10 text-base bg-primary hover:bg-primary/90 text-white"
-          asChild
-        >
-          <a href="#contato">Fale com a gente</a>
-        </Button>
+        <div className="hidden lg:block" />
       </div>
     </section>
   );

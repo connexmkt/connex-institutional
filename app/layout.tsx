@@ -1,19 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Connex | Sua marca conectada ao que importa",
@@ -52,9 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="dark bg-background">
-      <body
-        className={`${spaceGrotesk.variable} ${dmSans.variable} font-sans antialiased`}
-      >
+      <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>

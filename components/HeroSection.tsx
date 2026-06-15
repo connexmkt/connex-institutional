@@ -52,8 +52,7 @@ export function HeroSection() {
         muted
         loop
         playsInline
-        // Adicionado scale-[1.05] (ou scale-105) e transform-gpu para performance
-        className="absolute top-0 left-0 w-full h-full object-cover object-right z-0 scale-[1.05] transform-gpu"
+        className="absolute top-0 left-0 w-full h-full object-cover object-right z-0 scale-110 transform-gpu"
       />
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />

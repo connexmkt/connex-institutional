@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 type PhrasePart = { text: string; highlight: boolean };
@@ -44,7 +45,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section className="relative w-full h-screen overflow-hidden rounded-bl-[2.5rem] rounded-br-[2.5rem]">
       <video
         ref={videoRef}
         src="/background2.mp4"
@@ -58,10 +59,15 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
 
       <div className="absolute inset-0 z-20 grid grid-cols-1 lg:grid-cols-2">
-        <div className="flex flex-col items-start justify-center px-8 md:px-16 lg:px-20">
-          <h1 className="text-7xl md:text-8xl lg:text-[10rem] font-bold text-white leading-none tracking-tight">
-            Connex
-          </h1>
+        <div className="flex flex-col items-center justify-center text-center">
+          <Image
+            src="/logo-empresa-escuro-removebg-preview-copia.png"
+            alt="Connex"
+            width={480}
+            height={160}
+            priority
+            className="w-64 md:w-30 lg:w-[20rem] h-auto object-contain"
+          />
 
           <div className="mt-4 h-12 md:h-14 lg:h-16 overflow-hidden relative">
             <AnimatePresence mode="wait">
@@ -80,7 +86,7 @@ export function HeroSection() {
                     </span>
                   ) : (
                     <span key={i}>{part.text}</span>
-                  )
+                  ),
                 )}
               </motion.p>
             </AnimatePresence>

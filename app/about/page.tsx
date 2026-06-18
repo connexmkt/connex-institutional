@@ -36,7 +36,7 @@ function Section({
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <motion.section
+    <motion.div
       ref={ref}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
@@ -44,7 +44,7 @@ function Section({
       className={className}
     >
       {children}
-    </motion.section>
+    </motion.div>
   );
 }
 
@@ -57,7 +57,7 @@ const pillars = [
   },
   {
     icon: Stethoscope,
-    area: "Medicina",
+    area: "Founder",
     description:
       "O olhar diagnóstico para identificar o que realmente está travando um negócio antes de prescrever qualquer solução.",
   },
@@ -213,7 +213,7 @@ export default function AboutPage() {
                 variants={fadeUp}
                 className="text-muted-foreground text-lg max-w-2xl mx-auto"
               >
-                A interseção entre marketing, medicina e tecnologia não é um
+                A interseção entre marketing e tecnologia não é um
                 detalhe da nossa história. É o nosso método.
               </motion.p>
             </div>
@@ -283,10 +283,7 @@ export default function AboutPage() {
                   </motion.p>
                 </div>
 
-                <motion.div
-                  variants={fadeUp}
-                  className="flex flex-col gap-4"
-                >
+                <motion.div variants={fadeUp} className="flex flex-col gap-4">
                   {[
                     { city: "Natal", state: "RN", role: "Sede" },
                     { city: "Brasília", state: "DF", role: "Presença" },
@@ -380,8 +377,8 @@ export default function AboutPage() {
                 variants={fadeUp}
                 className="text-3xl md:text-4xl font-bold text-white mb-6 text-balance"
               >
-                Se você chegou até aqui, provavelmente está buscando mais do
-                que uma agência.
+                Se você chegou até aqui, provavelmente está buscando mais do que
+                uma agência.
               </motion.h2>
 
               <motion.p

@@ -43,7 +43,8 @@ export function Navbar() {
               alt="Connex"
               width={56}
               height={56}
-              className="h-12 w-auto"
+              className="h-12"
+              style={{ width: "auto" }}
               priority
             />
           ) : (
@@ -52,7 +53,8 @@ export function Navbar() {
               alt="Connex"
               width={160}
               height={48}
-              className="h-12 w-auto max-w-[160px]"
+              className="h-12 max-w-[160px]"
+              style={{ width: "auto" }}
               priority
             />
           )}

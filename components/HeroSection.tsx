@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 type PhrasePart = { text: string; highlight: boolean };
 
@@ -102,6 +104,20 @@ export function HeroSection() {
         </div>
 
         <div className="hidden lg:block" />
+      </div>
+
+      {/* Botão "Conheça a Connex" — canto inferior direito */}
+      <div className="absolute bottom-5 right-8 z-20">
+        <Button
+          variant="outline"
+          className="h-21 px-3 gap-2 rounded-xl border-white/20 bg-black/90 text-white backdrop-blur-md hover:bg-black/95 hover:border-white/50 shadow-xl"
+          asChild
+        >
+          <Link href="/about">
+            <span className="text-sm font-medium">Conheça a Connex</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </Button>
       </div>
     </section>
   );

@@ -216,7 +216,7 @@ export function ServicesSection() {
             Serviços
           </p>
           <SectionDivider color="light" />
-          <h2 className="text-[clamp(3.5rem,12vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
+          <h2 className="text-[clamp(2.5rem,10vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
             O que
             <br />
             Fazemos
@@ -250,7 +250,7 @@ export function ServicesSection() {
                 </p>
               </div>
               <SectionDivider color={service.divider} />
-              <h2 className="text-[clamp(3.5rem,6vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
+              <h2 className="text-[clamp(2rem,8vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
                 {service.title.map((line, i) => (
                   <span key={i}>
                     {line}
@@ -265,7 +265,7 @@ export function ServicesSection() {
                 {service.description}
               </p>
               <SectionDivider color={service.divider} />
-              <div className="flex flex-wrap gap-[clamp(1.5rem,3vw,4rem)]">
+              <div className="flex flex-wrap gap-[clamp(1.5rem,3vw,4rem)] justify-center md:justify-start">
                 {service.features.map((feature) => (
                   <div key={feature.title} className="min-w-[160px] flex-1">
                     <p

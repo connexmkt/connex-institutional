@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { ShaderBackground } from "@/components/ShaderBackground";
 
 type PhrasePart = { text: string; highlight: boolean };
 
@@ -31,6 +32,15 @@ const INTERVAL_MS = 3500;
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [index, setIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -48,17 +58,21 @@ export function HeroSection() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden rounded-bl-[2.5rem] rounded-br-[2.5rem]">
-      <video
-        ref={videoRef}
-        src="/background2.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover object-right z-0 scale-110 transform-gpu"
-      />
+      {isMobile ? (
+        <ShaderBackground />
+      ) : (
+        <video
+          ref={videoRef}
+          src="/background2.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover object-right z-0 scale-110 transform-gpu"
+        />
+      )}
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 md:bg-gradient-to-r md:from-black/80 md:via-black/40 md:to-transparent z-10" />
 
       <div className="absolute inset-0 z-20 grid grid-cols-1 lg:grid-cols-2">
         <div className="flex flex-col items-center justify-center text-center">

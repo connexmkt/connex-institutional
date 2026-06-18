@@ -39,9 +39,9 @@ export function Footer() {
           transition={{ duration: 0.6 }}
           className="py-6"
         >
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {/* Brand Column */}
-            <div className="lg:col-span-2">
+            <div className="col-span-2 lg:col-span-2">
               <Image
                 src="/escuro.jpeg"
                 alt="Connex"

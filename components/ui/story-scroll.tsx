@@ -56,7 +56,7 @@ function AnimatedSection({
         inset: 0,
         zIndex: index + 1,
       }}
-      className="w-full h-full flex flex-col p-[clamp(2rem,6vw,8rem)]"
+      className="w-full h-full flex flex-col p-[clamp(1.5rem,6vw,8rem)] items-center text-center md:items-start md:text-left"
     >
       {children}
     </motion.section>

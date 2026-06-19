@@ -100,7 +100,7 @@ export function HeroSection() {
           />
 
           {/* Pill escuro garante que a frase nunca funde com o vídeo */}
-          <div className="mt-4 min-h-12 md:min-h-14 lg:min-h-16 h-auto flex items-center justify-center px-5 py-2 rounded-full bg-black/30 backdrop-blur-sm max-w-[88vw]">
+          <div className="mt-4 min-h-12 md:min-h-14 lg:min-h-16 h-auto flex items-center justify-center px-5 py-2 rounded-full bg-black/20 backdrop-blur-sm max-w-[88vw]">
             <AnimatePresence mode="wait">
               <motion.p
                 key={index}

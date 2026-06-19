@@ -39,14 +39,14 @@ export function Footer() {
           transition={{ duration: 0.6 }}
           className="py-6"
         >
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {/* Brand Column */}
-            <div className="col-span-2 lg:col-span-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Coluna esquerda: Brand + Localizações */}
+            <div>
               <Image
-                src="/escuro.jpeg"
+                src="/escuro-removebg-preview.png"
                 alt="Connex"
-                width={100}
-                height={32}
+                width={120}
+                height={40}
                 className="object-contain"
                 style={{ height: "auto" }}
               />
@@ -55,7 +55,6 @@ export function Footer() {
                 resultados e crescimento sustentável.
               </p>
 
-              {/* Location */}
               <div className="flex flex-col gap-1 mt-3 text-muted-foreground">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 shrink-0" />
@@ -68,36 +67,37 @@ export function Footer() {
               </div>
             </div>
 
-            {/* Links Column */}
-            <div>
-              <h4 className="font-semibold mb-3 text-sm">Links</h4>
-              <nav className="flex flex-col gap-2">
-                {footerLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors text-xs"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
+            {/* Coluna direita: Links + Redes Sociais */}
+            <div className="flex flex-col gap-6">
+              <div>
+                <h4 className="font-semibold mb-3 text-sm">Links</h4>
+                <nav className="flex flex-col gap-2">
+                  {footerLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className="text-muted-foreground hover:text-foreground transition-colors text-xs"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
 
-            {/* Social Column */}
-            <div>
-              <h4 className="font-semibold mb-3 text-sm">Redes Sociais</h4>
-              <div className="flex gap-2">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    aria-label={social.label}
-                    className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
-                  >
-                    <social.icon className="w-4 h-4" />
-                  </a>
-                ))}
+              <div>
+                <h4 className="font-semibold mb-3 text-sm">Redes Sociais</h4>
+                <div className="flex gap-2">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      aria-label={social.label}
+                      className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
+                    >
+                      <social.icon className="w-4 h-4" />
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

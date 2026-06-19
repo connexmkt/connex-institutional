@@ -37,27 +37,14 @@ export function Navbar() {
     >
       <nav className="container mx-auto px-4 md:px-6 h-20 flex items-center justify-between relative">
         <a href="#" className="relative z-10 flex items-center">
-          {isScrolled ? (
-            <Image
-              src="/escuro-removebg-preview.png"
-              alt="Connex"
-              width={56}
-              height={56}
-              className="h-12"
-              style={{ width: "auto" }}
-              priority
-            />
-          ) : (
-            <Image
-              src="/logo-empresa-escuro-removebg-preview.png"
-              alt="Connex"
-              width={160}
-              height={48}
-              className="h-12 max-w-[160px]"
-              style={{ width: "auto" }}
-              priority
-            />
-          )}
+          <Image
+            src="/escuro-removebg-preview.png"
+            alt="Connex"
+            width={72}
+            height={72}
+            className="h-14 w-auto"
+            priority
+          />
         </a>
 
         {/* Desktop Navigation — absolutamente centralizado */}
@@ -66,7 +53,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-base font-semibold text-muted-foreground hover:text-foreground transition-colors"
             >
               {link.label}
             </a>
@@ -74,7 +61,10 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-4 relative z-10">
-          <Button asChild>
+          <Button
+            asChild
+            className="bg-white text-blue-950 font-semibold hover:bg-gray-100 shadow-lg border-0"
+          >
             <a href="#contato">Fale conosco</a>
           </Button>
         </div>
@@ -115,7 +105,10 @@ export function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <Button asChild className="mt-4">
+              <Button
+                asChild
+                className="mt-4 bg-white text-blue-950 font-semibold hover:bg-gray-100 shadow-lg border-0"
+              >
                 <a href="#contato" onClick={() => setIsMobileMenuOpen(false)}>
                   Fale conosco
                 </a>

@@ -1,6 +1,5 @@
 "use client";
 
-
 import StoryScroll, { StorySection } from "@/components/ui/story-scroll";
 
 import {
@@ -223,8 +222,8 @@ export function ServicesSection() {
           </h2>
           <SectionDivider color="light" />
           <p className="mt-auto max-w-[48ch] text-[clamp(1rem,2vw,1.75rem)] font-normal leading-relaxed opacity-90">
-            Soluções completas de marketing digital para impulsionar seu
-            negócio.
+            Marketing, visão de negócio e tecnologia trabalhando juntos — não
+            como serviços avulsos, mas como peças de uma mesma estratégia.
           </p>
         </StorySection>
 
@@ -250,7 +249,7 @@ export function ServicesSection() {
                 </p>
               </div>
               <SectionDivider color={service.divider} />
-              <h2 className="text-[clamp(2rem,8vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
+              <h2 className="text-[clamp(2.5rem,8vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
                 {service.title.map((line, i) => (
                   <span key={i}>
                     {line}
@@ -260,14 +259,17 @@ export function ServicesSection() {
               </h2>
               <SectionDivider color={service.divider} />
               <p
-                className={`max-w-[48ch] text-[clamp(1rem,2vw,1.75rem)] font-normal leading-relaxed ${service.divider === "dark" ? "opacity-75" : "opacity-80"}`}
+                className={`max-w-[48ch] text-[clamp(0.95rem,2vw,1.75rem)] font-normal leading-relaxed ${service.divider === "dark" ? "opacity-75" : "opacity-80"}`}
               >
                 {service.description}
               </p>
               <SectionDivider color={service.divider} />
-              <div className="flex flex-wrap gap-[clamp(1.5rem,3vw,4rem)] justify-center md:justify-start">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-[clamp(1.5rem,3vw,4rem)]">
                 {service.features.map((feature) => (
-                  <div key={feature.title} className="min-w-[160px] flex-1">
+                  <div
+                    key={feature.title}
+                    className="w-full sm:min-w-[160px] sm:flex-1"
+                  >
                     <p
                       className={`mb-2 text-sm font-bold uppercase tracking-wider ${opacityClass}`}
                     >

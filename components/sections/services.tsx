@@ -215,7 +215,7 @@ export function ServicesSection() {
             Serviços
           </p>
           <SectionDivider color="light" />
-          <h2 className="text-[clamp(3.5rem,12vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
+          <h2 className="text-[clamp(2.5rem,10vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
             O que
             <br />
             Fazemos

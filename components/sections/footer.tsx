@@ -48,6 +48,7 @@ export function Footer() {
                 width={120}
                 height={40}
                 className="object-contain"
+                style={{ height: "auto" }}
               />
               <p className="text-muted-foreground mt-3 max-w-sm text-sm">
                 Conectamos sua marca ao que realmente importa: clientes,

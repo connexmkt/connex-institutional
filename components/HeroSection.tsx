@@ -6,6 +6,7 @@ import Hls from "hls.js";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { ShaderBackground } from "@/components/ShaderBackground";
 
 type PhrasePart = { text: string; highlight: boolean };
 
@@ -31,6 +32,15 @@ const INTERVAL_MS = 3500;
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [index, setIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const HLS_SRC =
     "https://stream.mux.com/kimF2ha9zLrX64H00UgLGPflCzNtl1T0215MlAmeOztv8.m3u8";

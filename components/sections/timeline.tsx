@@ -13,7 +13,7 @@ const weeks = [
     items: [
       "Assinatura do contrato",
       "Criação do grupo de trabalho",
-      "Reunião de Kick-off",
+      "Reunião de Onboarding",
     ],
   },
   {
@@ -22,7 +22,7 @@ const weeks = [
     icon: Palette,
     items: [
       "Definição da linha editorial",
-      "Aprovação da identidade visual",
+      "Aprovação da identidade digital",
       "Alinhamento estratégico",
     ],
   },
@@ -41,7 +41,7 @@ const weeks = [
     title: "Lançamento",
     icon: Rocket,
     items: [
-      "Posts e campanhas entram no ar",
+      "Posts entram no ar",
       "Início do monitoramento",
       "Otimização contínua",
     ],
@@ -106,9 +106,6 @@ export function TimelineSection() {
                 <div className="relative bg-card rounded-2xl p-6 border border-border/50 h-full hover:border-primary/50 transition-colors">
                   {/* Week badge */}
                   <div className="flex items-center gap-3 mb-5">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm">
-                      S{week.week}
-                    </div>
                     <div className="flex-1">
                       <span className="text-xs text-muted-foreground uppercase tracking-wider">
                         Semana {week.week}

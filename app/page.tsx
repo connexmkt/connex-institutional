@@ -5,6 +5,7 @@ import { MethodologySection } from "@/components/sections/methodology";
 import { TimelineSection } from "@/components/sections/timeline";
 import { ResultsSection } from "@/components/sections/results";
 import { CTASection } from "@/components/sections/cta";
+import { FAQSection } from "@/components/sections/faq";
 import { Footer } from "@/components/sections/footer";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         <TimelineSection />
         <ResultsSection />
         <CTASection />
+        <FAQSection />
       </main>
       <Footer />
     </>

@@ -62,7 +62,11 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
 };
 
 export function ServicesSection() {
@@ -116,7 +120,7 @@ export function ServicesSection() {
       {/* Main content */}
       <div className="relative z-10 lg:ml-10">
         {/* Section header */}
-        <div className="mb-14">
+        <div className="mb-14 max-w-3xl">
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
@@ -138,10 +142,23 @@ export function ServicesSection() {
             className="font-bold uppercase leading-[0.9] tracking-tight text-white"
             style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
           >
-            O Que
+            Transformamos
             <br />
-            Fazemos
+            <span className="text-primary">marcas locais</span>
+            <br />
+            em autoridade digital
           </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.28 }}
+            className="mt-6 text-[clamp(0.9rem,1.2vw,1.05rem)] leading-relaxed text-white/50"
+          >
+            Uma única promessa, seis frentes de trabalho.
+            <br className="hidden sm:block" /> É assim que construímos presença
+            digital que converte.
+          </motion.p>
         </div>
 
         {/* Services grid */}

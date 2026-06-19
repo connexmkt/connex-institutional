@@ -5,8 +5,19 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, AlertCircle } from "lucide-react";
+import {
+  Mail,
+  Send,
+  Check,
+  AlertCircle,
+  Instagram,
+  ShieldCheck,
+  TrendingDown,
+  Clock,
+} from "lucide-react";
+
+// TODO: substituir por número real de vagas disponíveis no mês
+const VAGAS_RESTANTES = 3;
 
 const contatoSchema = z.object({
   nome: z.string().min(2, "Informe seu nome completo"),
@@ -18,9 +29,11 @@ const contatoSchema = z.object({
 type ContatoFormData = z.infer<typeof contatoSchema>;
 
 const inputClass =
-  "w-full px-4 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all";
+  "w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-neutral-100 placeholder-neutral-400 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20 transition-all";
 
-const errorClass = "text-red-400 text-sm mt-1 text-left";
+const labelClass = "block text-sm font-medium text-neutral-300 mb-2";
+
+const errorClass = "text-red-400 text-xs mt-1";
 
 export function CTASection() {
   const ref = useRef(null);
@@ -61,122 +74,261 @@ export function CTASection() {
   return (
     <section
       id="contato"
-      className="relative py-24 md:py-32 overflow-hidden bg-[#161622]"
+      className="pt-40 pb-40 md:pt-40 relative overflow-hidden"
+      style={{
+        maskImage:
+          "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
+        WebkitMaskImage:
+          "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
+      }}
     >
-      <div className="absolute inset-0 bg-[#161622] noise" />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10" />
+      {/* Spline background */}
+      <div className="pointer-events-none absolute top-0 left-0 w-full h-full -z-10">
+        <iframe
+          src="https://my.spline.design/claritystream-a72K0KUwFoZV82QBzvu52Kai"
+          frameBorder="0"
+          width="100%"
+          height="100%"
+          title="Connex background"
+          tabIndex={-1}
+        />
+      </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div
+          className="absolute -left-40 top-10 h-[70vh] w-[60vh] rounded-full blur-3xl opacity-25"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(91,95,232,0.4), rgba(0,0,0,0))",
+          }}
+        />
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6">
+        {/* Header */}
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="max-w-2xl mx-auto text-center"
+          transition={{ duration: 0.7 }}
+          className="text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 text-balance">
-            Pronto para conectar sua marca ao{" "}
-            <span className="text-primary">crescimento</span>?
+          <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs text-amber-300 font-medium">
+            <Clock className="h-3.5 w-3.5" />
+            Vagas limitadas
+          </span>
+
+          <h2 className="mt-4 text-4xl sm:text-6xl tracking-tight font-semibold text-white">
+            Cada dia parado é{" "}
+            <span className="italic font-medium text-neutral-200">
+              cliente no concorrente
+            </span>
           </h2>
 
-          <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto">
-            Entre em contato e descubra como podemos transformar sua presença
-            digital em conexões e resultados reais.
+          <p className="mt-4 text-neutral-400 text-lg max-w-2xl mx-auto">
+            Enquanto você adia, outra marca do seu setor está conquistando o
+            espaço digital que deveria ser seu. Vamos mudar isso agora.
           </p>
-
-          {isSubmitted ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center justify-center gap-3 text-white bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-6 max-w-md mx-auto"
-            >
-              <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center shrink-0">
-                <Check className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-left">
-                Mensagem recebida. Em breve nossa equipe entrará em contato.
-              </span>
-            </motion.div>
-          ) : (
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-4 text-left"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <input
-                    {...register("nome")}
-                    type="text"
-                    placeholder="Seu nome completo"
-                    autoComplete="name"
-                    className={inputClass}
-                  />
-                  {errors.nome && (
-                    <p className={errorClass}>{errors.nome.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <input
-                    {...register("telefone")}
-                    type="tel"
-                    placeholder="Seu telefone / WhatsApp"
-                    autoComplete="tel"
-                    className={inputClass}
-                  />
-                  {errors.telefone && (
-                    <p className={errorClass}>{errors.telefone.message}</p>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <input
-                  {...register("email")}
-                  type="email"
-                  placeholder="Seu melhor e-mail"
-                  autoComplete="email"
-                  className={inputClass}
-                />
-                {errors.email && (
-                  <p className={errorClass}>{errors.email.message}</p>
-                )}
-              </div>
-
-              <div>
-                <textarea
-                  {...register("dificuldade")}
-                  rows={3}
-                  placeholder="Qual sua maior dificuldade em relação à visibilidade do seu negócio? (opcional)"
-                  className={`${inputClass} resize-none`}
-                />
-              </div>
-
-              {apiError && (
-                <div className="flex items-center gap-2 text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">
-                  <AlertCircle className="w-4 h-4 shrink-0" />
-                  <span className="text-sm">{apiError}</span>
-                </div>
-              )}
-
-              <Button
-                type="submit"
-                size="lg"
-                disabled={isSubmitting}
-                className="w-full rounded-xl gap-2 mt-2"
-              >
-                {isSubmitting ? (
-                  "Enviando..."
-                ) : (
-                  <>
-                    Entrar em contato
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </Button>
-            </form>
-          )}
         </motion.div>
+
+        {/* Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="mt-12 grid md:grid-cols-2 gap-8"
+        >
+          {/* Form card */}
+          <div className="relative rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur">
+            <h3 className="text-xl font-semibold text-white mb-6">
+              Envie uma mensagem
+            </h3>
+
+            {isSubmitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex items-center gap-3 rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-5"
+              >
+                <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center shrink-0">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-sm text-green-300">
+                  Mensagem recebida! Em breve nossa equipe entrará em contato.
+                </span>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="ct-nome" className={labelClass}>
+                      Nome completo
+                    </label>
+                    <input
+                      id="ct-nome"
+                      {...register("nome")}
+                      type="text"
+                      autoComplete="name"
+                      placeholder="João Silva"
+                      className={inputClass}
+                    />
+                    {errors.nome && (
+                      <p className={errorClass}>{errors.nome.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="ct-telefone" className={labelClass}>
+                      Telefone / WhatsApp
+                    </label>
+                    <input
+                      id="ct-telefone"
+                      {...register("telefone")}
+                      type="tel"
+                      autoComplete="tel"
+                      placeholder="(84) 99999-9999"
+                      className={inputClass}
+                    />
+                    {errors.telefone && (
+                      <p className={errorClass}>{errors.telefone.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="ct-email" className={labelClass}>
+                    E-mail
+                  </label>
+                  <input
+                    id="ct-email"
+                    {...register("email")}
+                    type="email"
+                    autoComplete="email"
+                    placeholder="voce@empresa.com.br"
+                    className={inputClass}
+                  />
+                  {errors.email && (
+                    <p className={errorClass}>{errors.email.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label htmlFor="ct-dificuldade" className={labelClass}>
+                    Qual sua maior dificuldade de visibilidade?
+                  </label>
+                  <textarea
+                    id="ct-dificuldade"
+                    {...register("dificuldade")}
+                    rows={4}
+                    placeholder="Conte um pouco sobre seu negócio e seus desafios… (opcional)"
+                    className={`${inputClass} resize-y`}
+                  />
+                </div>
+
+                {apiError && (
+                  <div className="flex items-center gap-2 text-red-400 border border-red-500/20 bg-red-500/10 rounded-lg px-4 py-3">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span className="text-sm">{apiError}</span>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-white font-semibold hover:bg-primary/90 transition disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-primary/20"
+                >
+                  <span>
+                    {isSubmitting ? "Enviando..." : "Quero garantir minha vaga"}
+                  </span>
+                  {!isSubmitting && <Send className="h-4 w-4" />}
+                </button>
+                <p className="text-center text-xs text-neutral-500">
+                  Sem compromisso · Resposta em até 24h
+                </p>
+              </form>
+            )}
+          </div>
+
+          {/* Info cards */}
+          <div className="space-y-5">
+            {/* Custo da inação */}
+            <div className="relative rounded-2xl border border-red-500/20 bg-red-500/5 p-6 shadow-xl backdrop-blur">
+              <div className="flex items-start gap-4">
+                <div className="h-11 w-11 rounded-xl bg-red-500/15 border border-red-500/20 flex items-center justify-center shrink-0">
+                  <TrendingDown className="h-5 w-5 text-red-400" />
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-white mb-1">
+                    O custo real de esperar
+                  </h3>
+                  <p className="text-sm text-neutral-400 leading-relaxed">
+                    Cada semana sem presença digital consistente é{" "}
+                    <span className="text-neutral-200 font-medium">
+                      autoridade cedida ao concorrente
+                    </span>{" "}
+                    e clientes perdidos que você nunca vai conseguir recuperar.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Garantia */}
+            <div className="relative rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6 shadow-xl backdrop-blur">
+              <div className="flex items-start gap-4">
+                <div className="h-11 w-11 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="h-5 w-5 text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-white mb-1">
+                    Garantia de resultado
+                  </h3>
+                  <p className="text-sm text-neutral-400 leading-relaxed">
+                    Primeiros resultados em{" "}
+                    <span className="text-neutral-200 font-medium">
+                      4 semanas
+                    </span>{" "}
+                    ou ajustamos a estratégia sem nenhum custo adicional.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Email + Social */}
+            <div className="relative rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+              <div className="flex items-center justify-between">
+                <a
+                  href="mailto:contato@connexmkt.com.br"
+                  className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
+                >
+                  <Mail className="h-4 w-4" />
+                  contato@connexmkt.com.br
+                </a>
+                <a
+                  href="https://instagram.com/connexmkt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 text-neutral-400 hover:text-white hover:bg-white/15 transition"
+                  aria-label="Instagram da Connex"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Bottom fade line */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 opacity-25 w-[60%] h-8"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 100% at 50% 100%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 30%, transparent 70%)",
+          }}
+        />
+        <div className="h-px bg-white/10 w-full" />
       </div>
     </section>
   );

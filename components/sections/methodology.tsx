@@ -1,9 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { MessageSquare, Lightbulb, Wrench, BarChart3 } from "lucide-react";
+
+const effortStats = [
+  { value: "+40h", label: "de produção por mês" },
+  { value: "3x", label: "rodadas de revisão por peça" },
+  { value: "Uma equipe especializada", label: "revisa cada entrega" },
+  { value: "10+", label: "conteúdos produzidos mensalmente" },
+];
 
 const steps = [
   {
@@ -11,28 +17,32 @@ const steps = [
     icon: MessageSquare,
     title: "Briefing",
     description:
-      "Reunião de alinhamento para extrair todas as informações necessárias sobre seu negócio e objetivos.",
+      "Imersão completa no seu negócio, concorrentes e público. Extraímos tudo que importa para não desperdiçar nem uma hora de produção.",
+    metric: "≈ 2h de imersão no seu negócio",
   },
   {
     number: "02",
     icon: Lightbulb,
     title: "Estratégia",
     description:
-      "Nossa equipe desenvolve o plano estratégico completo e envia para sua aprovação.",
+      "Nossa equipe desenvolve o plano estratégico completo. Calendário, tom de voz, temas e formatos antes de produzir uma única peça.",
+    metric: "30+ dias planejados com antecedência",
   },
   {
     number: "03",
     icon: Wrench,
     title: "Produção",
     description:
-      "Criação do SETUP completo: posicionamento, identidade visual e conteúdos de manutenção.",
+      "Criação artesanal do SETUP completo: posicionamento, identidade digital e conteúdos. Cada peça passa por rodadas de revisão antes de ser publicada.",
+    metric: "+40h de produção por mês",
   },
   {
     number: "04",
     icon: BarChart3,
     title: "Publicação & Análise",
     description:
-      "Conteúdos vão ao ar e monitoramos resultados para otimização contínua.",
+      "Conteúdos vão ao ar no melhor horário para seu público. Monitoramos, otimizamos e entregamos relatório detalhado todo mês.",
+    metric: "Relatório completo todo mês",
   },
 ];
 
@@ -70,7 +80,7 @@ export function MethodologySection() {
           className="max-w-6xl mx-auto"
         >
           {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center mb-16">
+          <motion.div variants={itemVariants} className="text-center mb-12">
             <span className="text-sm font-medium text-primary uppercase tracking-wider">
               Metodologia
             </span>
@@ -78,8 +88,21 @@ export function MethodologySection() {
               Como trabalhamos
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Um processo estruturado para garantir resultados consistentes
+              Um processo estruturado, com trabalho real por trás de cada entrega
             </p>
+          </motion.div>
+
+          {/* Effort Stats Strip */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row mb-16 rounded-2xl bg-primary/5 border border-primary/10 overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-primary/10"
+          >
+            {effortStats.map((stat) => (
+              <div key={stat.value} className="flex-1 flex flex-col items-center justify-center text-center px-6 py-5">
+                <p className="text-2xl font-bold text-primary leading-none">{stat.value}</p>
+                <p className="text-xs text-muted-foreground mt-2 leading-snug">{stat.label}</p>
+              </div>
+            ))}
           </motion.div>
 
           {/* Steps */}
@@ -111,6 +134,13 @@ export function MethodologySection() {
                     <p className="text-muted-foreground text-sm leading-relaxed">
                       {step.description}
                     </p>
+
+                    <div className="mt-4 pt-4 border-t border-border/50">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                        {step.metric}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Arrow connector - visible between cards on desktop */}

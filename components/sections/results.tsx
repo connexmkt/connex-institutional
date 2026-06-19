@@ -1,9 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import type React from "react";
 import { Users, Heart, ShoppingBag, Repeat, TrendingUp } from "lucide-react";
 
 const funnelSteps = [
@@ -13,35 +11,55 @@ const funnelSteps = [
     subtitle: "Leads",
     description:
       "Captação de potenciais clientes através de conteúdo e campanhas",
-    width: "100%",
+    accent: {
+      icon: "text-indigo-300",
+      blob: "from-indigo-400/20 to-blue-300/10",
+      blobPosition: "-right-10 -bottom-10",
+    },
   },
   {
     icon: Heart,
     title: "Retenção",
     subtitle: "Ecossistema",
     description: "Criação de conexão e engajamento com sua audiência",
-    width: "85%",
+    accent: {
+      icon: "text-fuchsia-300",
+      blob: "from-fuchsia-400/20 to-pink-300/10",
+      blobPosition: "-left-10 -bottom-10",
+    },
   },
   {
     icon: ShoppingBag,
     title: "Adesão",
     subtitle: "Compra por confiança",
     description: "Conversão através de relacionamento e autoridade construída",
-    width: "70%",
+    accent: {
+      icon: "text-cyan-300",
+      blob: "from-cyan-400/20 to-teal-300/10",
+      blobPosition: "-right-10 -top-10",
+    },
   },
   {
     icon: Repeat,
     title: "Recompra + Indicação",
     subtitle: "Fidelização",
     description: "Clientes satisfeitos que voltam e indicam sua marca",
-    width: "55%",
+    accent: {
+      icon: "text-violet-300",
+      blob: "from-violet-400/20 to-purple-300/10",
+      blobPosition: "-left-10 -top-10",
+    },
   },
   {
     icon: TrendingUp,
     title: "Aumento do Faturamento",
     subtitle: "Resultado",
     description: "Crescimento sustentável e escalável do seu negócio",
-    width: "40%",
+    accent: {
+      icon: "text-emerald-300",
+      blob: "from-emerald-400/20 to-green-300/10",
+      blobPosition: "-right-10 -bottom-10",
+    },
   },
 ];
 
@@ -56,10 +74,10 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -30 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
-    x: 0,
+    y: 0,
     transition: { duration: 0.5 },
   },
 };
@@ -91,48 +109,40 @@ export function ResultsSection() {
             </p>
           </motion.div>
 
-          {/* Funnel */}
-          <div className="space-y-4">
-            {funnelSteps.map((step, index) => (
+          {/* Cards Grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {funnelSteps.map((step) => (
               <motion.div
                 key={step.title}
                 variants={itemVariants}
-                className="flex justify-center"
+                whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                className="relative ring-1 ring-white/10 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)] overflow-hidden rounded-2xl p-6 md:p-8"
               >
+                {/* Decorative gradient blob */}
                 <div
-                  className="relative bg-card border border-border/50 rounded-xl p-4 md:p-5 flex items-center gap-4 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 w-full md:w-[--funnel-width]"
-                  style={{ "--funnel-width": step.width } as React.CSSProperties}
-                >
-                  {/* Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <step.icon className="w-6 h-6 text-primary" />
-                  </div>
+                  className={`pointer-events-none absolute ${step.accent.blobPosition} h-64 w-64 rounded-full bg-gradient-to-tr ${step.accent.blob} blur-2xl`}
+                />
 
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="font-semibold">{step.title}</h3>
-                      <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                        {step.subtitle}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground mt-1 hidden md:block">
-                      {step.description}
-                    </p>
+                {/* Icon + Title */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-10 w-10 rounded-xl bg-white/5 ring-1 ring-white/10 flex items-center justify-center flex-shrink-0">
+                    <step.icon className={`h-5 w-5 ${step.accent.icon}`} />
                   </div>
+                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight">
+                    {step.title}
+                  </h3>
+                </div>
 
-                  {/* Arrow indicator */}
-                  {index < funnelSteps.length - 1 && (
-                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-10">
-                      <svg
-                        className="w-4 h-4 text-primary"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M12 16l-6-6h12l-6 6z" />
-                      </svg>
-                    </div>
-                  )}
+                {/* Description */}
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {step.description}
+                </p>
+
+                {/* Subtitle badge */}
+                <div className="mt-5">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs text-muted-foreground ring-1 ring-white/10">
+                    {step.subtitle}
+                  </span>
                 </div>
               </motion.div>
             ))}

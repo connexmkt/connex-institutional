@@ -26,9 +26,11 @@ const navColumns = [
   {
     title: "Empresa",
     links: [
+      { href: "#historia", label: "Nossa História" },
       { href: "#metodologia", label: "Metodologia" },
       { href: "#cronograma", label: "Cronograma" },
-      { href: "#resultados", label: "Resultados" },
+      { href: "#provas", label: "Cases & Resultados" },
+      { href: "#planos", label: "Planos" },
       { href: "#faq", label: "FAQ" },
     ],
   },
@@ -111,10 +113,6 @@ export function Footer() {
                 className="object-contain"
                 style={{ height: "auto" }}
               />
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Nosso negócio é{" "}
-                <span className="text-foreground font-medium">fazer o seu crescer.</span>
-              </p>
               <a
                 href="#contato"
                 className="inline-flex items-center gap-2 self-start bg-primary text-white text-xs font-semibold uppercase tracking-wider px-4 py-2.5 hover:bg-primary/90 transition-colors"

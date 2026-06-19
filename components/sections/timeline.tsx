@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { FileText, Palette, Camera, Rocket } from "lucide-react";
 
@@ -15,6 +14,13 @@ const weeks = [
       "Criação do grupo de trabalho",
       "Reunião de Onboarding",
     ],
+    effort: "Diagnóstico completo do seu mercado",
+    accent: {
+      icon: "text-indigo-300",
+      blob: "bg-indigo-500/10",
+      blobPosition: "-left-24 -top-24",
+      badge: "bg-indigo-500/15 text-indigo-300 ring-indigo-500/20",
+    },
   },
   {
     week: 2,
@@ -25,6 +31,13 @@ const weeks = [
       "Aprovação da identidade digital",
       "Alinhamento estratégico",
     ],
+    effort: "Tom de voz, paleta e editorial definidos",
+    accent: {
+      icon: "text-cyan-300",
+      blob: "bg-cyan-400/10",
+      blobPosition: "-right-16 -top-16",
+      badge: "bg-cyan-500/15 text-cyan-300 ring-cyan-500/20",
+    },
   },
   {
     week: 3,
@@ -35,6 +48,13 @@ const weeks = [
       "Revisão e aprovação",
       "Ajustes finais",
     ],
+    effort: "3 rodadas de revisão incluídas",
+    accent: {
+      icon: "text-fuchsia-300",
+      blob: "bg-fuchsia-500/10",
+      blobPosition: "-bottom-24 -right-24",
+      badge: "bg-fuchsia-500/15 text-fuchsia-300 ring-fuchsia-500/20",
+    },
   },
   {
     week: 4,
@@ -45,6 +65,13 @@ const weeks = [
       "Início do monitoramento",
       "Otimização contínua",
     ],
+    effort: "Primeiros resultados em 28 dias",
+    accent: {
+      icon: "text-violet-300",
+      blob: "bg-violet-500/10",
+      blobPosition: "-bottom-16 -left-16",
+      badge: "bg-violet-500/15 text-violet-300 ring-violet-500/20",
+    },
   },
 ];
 
@@ -90,49 +117,67 @@ export function TimelineSection() {
               4 semanas para transformar sua marca
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Um roadmap claro do início até o lançamento das suas campanhas
+              Um roadmap claro, com trabalho real em cada etapa — do briefing ao primeiro resultado
             </p>
           </motion.div>
 
           {/* Timeline Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {weeks.map((week, index) => (
-              <motion.div
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {weeks.map((week) => (
+              <motion.article
                 key={week.week}
                 variants={itemVariants}
                 whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-                className="group"
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 backdrop-blur-sm"
               >
-                <div className="relative bg-card rounded-2xl p-6 border border-border/50 h-full hover:border-primary/50 transition-colors">
-                  {/* Week badge */}
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="flex-1">
-                      <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                        Semana {week.week}
-                      </span>
-                      <h3 className="text-lg font-semibold">{week.title}</h3>
+                {/* Decorative blur blob */}
+                <div
+                  className={`pointer-events-none absolute ${week.accent.blobPosition} h-56 w-56 rounded-full ${week.accent.blob} blur-3xl`}
+                />
+
+                {/* Icon */}
+                <div className="flex items-start gap-4">
+                  <div className="relative">
+                    <div className="grid h-12 w-12 place-items-center rounded-full bg-white/5 ring-1 ring-white/15">
+                      <week.icon className={`h-5 w-5 ${week.accent.icon}`} />
                     </div>
+                    <div className="pointer-events-none absolute -inset-4 rounded-full border border-white/5" />
                   </div>
-
-                  {/* Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                    <week.icon className="w-6 h-6 text-primary" />
-                  </div>
-
-                  {/* Items */}
-                  <ul className="space-y-2">
-                    {week.items.map((item, itemIndex) => (
-                      <li
-                        key={itemIndex}
-                        className="flex items-start gap-2 text-sm text-muted-foreground"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
-              </motion.div>
+
+                {/* Label + Title */}
+                <div className="mt-6">
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Semana {week.week}
+                  </span>
+                  <h3 className="mt-1 text-[22px] sm:text-[24px] font-semibold tracking-tight">
+                    {week.title}
+                  </h3>
+                </div>
+
+                {/* Items */}
+                <ul className="mt-3 space-y-2">
+                  {week.items.map((item, itemIndex) => (
+                    <li
+                      key={itemIndex}
+                      className="flex items-start gap-2 text-sm text-muted-foreground"
+                    >
+                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Effort badge */}
+                <div className="mt-5 pt-4 border-t border-white/8">
+                  <span
+                    className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${week.accent.badge}`}
+                  >
+                    <span className="h-1 w-1 rounded-full bg-current opacity-70" />
+                    {week.effort}
+                  </span>
+                </div>
+              </motion.article>
             ))}
           </div>
         </motion.div>

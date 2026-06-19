@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import type React from "react";
 import { Users, Heart, ShoppingBag, Repeat, TrendingUp } from "lucide-react";
 
 const funnelSteps = [
@@ -83,10 +84,10 @@ export function ResultsSection() {
               Resultados
             </span>
             <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6 text-balance">
-              A jornada do seu cliente
+              Sua jornada com a Connex
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Do primeiro contato até a fidelização — nosso funil de resultados
+              Do primeiro contato até a fidelização. Nosso funil de resultados
             </p>
           </motion.div>
 
@@ -99,8 +100,8 @@ export function ResultsSection() {
                 className="flex justify-center"
               >
                 <div
-                  className="relative bg-card border border-border/50 rounded-xl p-4 md:p-5 flex items-center gap-4 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
-                  style={{ width: step.width, minWidth: "280px" }}
+                  className="relative bg-card border border-border/50 rounded-xl p-4 md:p-5 flex items-center gap-4 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 w-full md:w-[--funnel-width]"
+                  style={{ "--funnel-width": step.width } as React.CSSProperties}
                 >
                   {/* Icon */}
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">

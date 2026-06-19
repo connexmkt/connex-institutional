@@ -1,292 +1,203 @@
 "use client";
 
-import StoryScroll, { StorySection } from "@/components/ui/story-scroll";
-
-import {
-  Globe,
-  Target,
-  type LucideIcon,
-  Network,
-  Monitor,
-  Lightbulb,
-  Video,
-} from "lucide-react";
-
-const DIVIDER_LIGHT = "1px solid rgba(255,255,255,0.25)";
-const DIVIDER_DARK = "1px solid rgba(22,22,34,0.2)";
-
-type ServiceFeature = {
-  title: string;
-  description: string;
-};
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 type Service = {
   index: string;
-  icon: LucideIcon;
   label: string;
-  title: string[];
   description: string;
-  divider: "light" | "dark";
-  style: React.CSSProperties;
-  features: ServiceFeature[];
 };
 
 const services: Service[] = [
   {
     index: "01",
-    icon: Globe,
     label: "Presença Digital",
-    title: ["Presença", "Digital"],
     description:
       "Site profissional e redes sociais com impacto visual imediato. Primeira impressão que converte visitantes em clientes.",
-    divider: "dark",
-    style: { backgroundColor: "#f5f2ee", color: "#161622" },
-    features: [
-      {
-        title: "Sites & Landing Pages",
-        description:
-          "Design responsivo e performance otimizada para conversão e retenção.",
-      },
-      {
-        title: "Redes Sociais",
-        description:
-          "Perfis profissionais com identidade visual consistente e conteúdo estratégico.",
-      },
-    ],
   },
   {
     index: "02",
-    icon: Target,
     label: "Campanhas de Captação",
-    title: ["Campanhas de", "Captação"],
     description:
       "Estratégias de tráfego pago e orgânico com teses bem definidas para atrair leads ativos e passivos qualificados.",
-    divider: "light",
-    style: { backgroundColor: "#252535", color: "#f5f2ee" },
-    features: [
-      {
-        title: "Tráfego Pago",
-        description:
-          "Google Ads, Meta Ads e outras plataformas com ROI rastreado e otimizado.",
-      },
-      {
-        title: "SEO & Orgânico",
-        description:
-          "Estratégias de conteúdo para crescimento sustentável e autoridade de marca.",
-      },
-      {
-        title: "Leads Qualificados",
-        description:
-          "Funis de captação com segmentação precisa para atrair quem realmente compra.",
-      },
-    ],
   },
   {
     index: "03",
-    icon: Video,
     label: "Produção de Vídeo",
-    title: ["Produção", "de Vídeo"],
     description:
-      "Do roteiro à entrega final. Criamos vídeos com equipamentos de ponta que comunicam sua marca com profissionalismo e impacto real.",
-    divider: "dark",
-    style: { backgroundColor: "#f5f2ee", color: "#161622" },
-    features: [
-      {
-        title: "Roteiro Estratégico",
-        description:
-          "Estrutura narrativa alinhada ao seu objetivo: vender, engajar ou posicionar.",
-      },
-      {
-        title: "Equipamentos de Ponta",
-        description:
-          "Câmeras, iluminação e áudio profissionais para um resultado visualmente superior.",
-      },
-      {
-        title: "Edição & Entrega",
-        description:
-          "Pós-produção completa com corte, trilha, legendas e formatos para cada plataforma.",
-      },
-    ],
+      "Do roteiro à entrega final. Criamos vídeos com equipamentos de ponta que comunicam sua marca com profissionalismo.",
   },
   {
     index: "04",
-    icon: Lightbulb,
     label: "Consultoria Estratégica",
-    title: ["Consultoria", "Estratégica"],
     description:
       "Mergulhamos no seu negócio para entender onde você está e traçar o caminho mais direto até onde você quer chegar.",
-    divider: "light",
-    style: { backgroundColor: "#161622", color: "#f5f2ee" },
-    features: [
-      {
-        title: "Diagnóstico Personalizado",
-        description:
-          "Análise profunda do seu negócio, mercado e concorrência para identificar alavancas reais.",
-      },
-      {
-        title: "Plano de Ação",
-        description:
-          "Roadmap prático com metas, prioridades e prazos adaptados à sua realidade.",
-      },
-      {
-        title: "Acompanhamento Contínuo",
-        description:
-          "Sessões de revisão para ajustar a rota conforme o negócio evolui.",
-      },
-    ],
   },
   {
     index: "05",
-    icon: Monitor,
     label: "Tecnologia & Gestão",
-    title: ["Tecnologia", "& Gestão"],
     description:
-      "Criamos sua identidade digital e entregamos visibilidade real do negócio. Do site ao painel que mostra seu crescimento em tempo real.",
-    divider: "dark",
-    style: { backgroundColor: "#f5f2ee", color: "#161622" },
-    features: [
-      {
-        title: "Identidade Digital",
-        description:
-          "Site profissional que representa sua marca e converte visitantes em oportunidades.",
-      },
-      {
-        title: "Gestão de Visibilidade",
-        description:
-          "Painel centralizado para acompanhar leads, desempenho nas redes e crescimento do negócio.",
-      },
-      {
-        title: "Automação Inteligente",
-        description:
-          "Processos automatizados que economizam tempo e mantêm o cliente sempre no radar.",
-      },
-    ],
+      "Do site ao painel que mostra seu crescimento em tempo real. Identidade digital com visibilidade total do negócio.",
   },
   {
     index: "06",
-    icon: Network,
     label: "Conexões Estratégicas",
-    title: ["Conexões", "Estratégicas"],
     description:
-      "Conectamos você com outros clientes e parceiros do ecossistema Connex para gerar oportunidades reais de negócio e crescimento mútuo.",
-    divider: "light",
-    style: { backgroundColor: "#252535", color: "#f5f2ee" },
-    features: [
-      {
-        title: "Networking Qualificado",
-        description:
-          "Apresentações estratégicas entre empresas com perfis complementares dentro da rede Connex.",
-      },
-      {
-        title: "Ecossistema de Negócios",
-        description:
-          "Ambiente colaborativo onde clientes trocam indicações, parcerias e oportunidades.",
-      },
-      {
-        title: "Crescimento em Rede",
-        description:
-          "Quanto mais o ecossistema cresce, mais oportunidades surgem para cada negócio dentro dele.",
-      },
-    ],
+      "Conectamos você com clientes e parceiros do ecossistema Connex para gerar oportunidades reais de negócio.",
   },
 ];
 
-function SectionDivider({ color }: { color: "light" | "dark" }) {
+const categories = ["Marketing Digital", "Estratégia", "Tecnologia"];
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const } },
+};
+
+export function ServicesSection() {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-10%" });
+
   return (
-    <hr
-      style={{
-        border: "none",
-        borderTop: color === "light" ? DIVIDER_LIGHT : DIVIDER_DARK,
-        margin: "clamp(1.25rem, 2vw, 2.5rem) 0",
-      }}
-    />
+    <section
+      id="servicos"
+      ref={ref}
+      className="relative overflow-hidden bg-[#161622] px-8 py-24 md:px-14 lg:px-20"
+    >
+      {/* Background decorative letter */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-[5%] top-1/2 -translate-y-[55%] select-none font-bold leading-none text-transparent"
+        style={{
+          fontSize: "clamp(300px, 38vw, 620px)",
+          WebkitTextStroke: "1.5px rgba(91,95,232,0.12)",
+        }}
+      >
+        S
+      </span>
+
+      {/* Bottom watermark */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 left-0 select-none whitespace-nowrap font-bold uppercase leading-none text-transparent"
+        style={{
+          fontSize: "clamp(64px, 13vw, 200px)",
+          WebkitTextStroke: "1px rgba(91,95,232,0.07)",
+          letterSpacing: "0.02em",
+        }}
+      >
+        CONNEX MARKETING
+      </span>
+
+      {/* Left vertical category labels */}
+      <div className="absolute left-4 top-1/2 hidden -translate-y-1/2 flex-col gap-12 lg:flex">
+        {categories.map((cat) => (
+          <span
+            key={cat}
+            className="text-[11px] font-bold uppercase tracking-[0.25em] text-white/20"
+            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+          >
+            {cat}
+          </span>
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 lg:ml-10">
+        {/* Section header */}
+        <div className="mb-14">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6 }}
+            className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-white/40"
+          >
+            Serviços
+          </motion.p>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mb-6 h-px w-12 origin-left bg-primary"
+          />
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="font-bold uppercase leading-[0.9] tracking-tight text-white"
+            style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
+          >
+            O Que
+            <br />
+            Fazemos
+          </motion.h2>
+        </div>
+
+        {/* Services grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {services.map((service) => (
+            <ServiceCard key={service.index} service={service} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
-export function ServicesSection() {
+function ServiceCard({ service }: { service: Service }) {
   return (
-    <div id="servicos">
-      <StoryScroll aria-label="Serviços da Connex">
-        <StorySection
-          aria-label="Serviços"
-          style={{ backgroundColor: "#5b5fe8", color: "#ffffff" }}
+    <motion.div variants={itemVariants} className="group flex flex-col gap-5">
+      {/* Index */}
+      <span className="text-xs font-bold tracking-[0.2em] text-primary/60">
+        {service.index}
+      </span>
+
+      {/* Title + arrow */}
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="text-[clamp(1.25rem,2vw,1.75rem)] font-bold capitalize leading-tight text-white">
+          {service.label}.
+        </h3>
+        <a
+          href="#contato"
+          aria-label={`Saiba mais sobre ${service.label}`}
+          className="mt-1 shrink-0 text-white/0 transition-colors duration-200 group-hover:text-primary"
         >
-          <p className="text-xs font-bold uppercase tracking-[0.2em] opacity-80">
-            Serviços
-          </p>
-          <SectionDivider color="light" />
-          <h2 className="text-[clamp(2.5rem,10vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
-            O que
-            <br />
-            Fazemos
-          </h2>
-          <SectionDivider color="light" />
-          <p className="mt-auto max-w-[48ch] text-[clamp(1rem,2vw,1.75rem)] font-normal leading-relaxed opacity-90">
-            Marketing, visão de negócio e tecnologia trabalhando juntos — não
-            como serviços avulsos, mas como peças de uma mesma estratégia.
-          </p>
-        </StorySection>
+          <ArrowUpRight className="h-5 w-5" />
+        </a>
+      </div>
 
-        {services.map((service) => {
-          const Icon = service.icon;
-          const opacityClass =
-            service.divider === "dark" ? "opacity-40" : "opacity-50";
-          const descOpacityClass =
-            service.divider === "dark" ? "opacity-55" : "opacity-60";
+      {/* Divider */}
+      <div className="h-px w-full bg-white/10 transition-colors duration-300 group-hover:bg-primary/40" />
 
-          return (
-            <StorySection
-              key={service.index}
-              aria-label={service.label}
-              style={service.style}
-            >
-              <div className="flex items-center gap-3">
-                <Icon className={`w-4 h-4 ${opacityClass}`} />
-                <p
-                  className={`text-xs font-bold uppercase tracking-[0.2em] ${opacityClass}`}
-                >
-                  {service.index}
-                </p>
-              </div>
-              <SectionDivider color={service.divider} />
-              <h2 className="text-[clamp(2.5rem,8vw,13rem)] font-bold leading-[0.85] uppercase tracking-tight">
-                {service.title.map((line, i) => (
-                  <span key={i}>
-                    {line}
-                    {i < service.title.length - 1 && <br />}
-                  </span>
-                ))}
-              </h2>
-              <SectionDivider color={service.divider} />
-              <p
-                className={`max-w-[48ch] text-[clamp(0.95rem,2vw,1.75rem)] font-normal leading-relaxed ${service.divider === "dark" ? "opacity-75" : "opacity-80"}`}
-              >
-                {service.description}
-              </p>
-              <SectionDivider color={service.divider} />
-              <div className="flex flex-col sm:flex-row flex-wrap gap-[clamp(1.5rem,3vw,4rem)]">
-                {service.features.map((feature) => (
-                  <div
-                    key={feature.title}
-                    className="w-full sm:min-w-[160px] sm:flex-1"
-                  >
-                    <p
-                      className={`mb-2 text-sm font-bold uppercase tracking-wider ${opacityClass}`}
-                    >
-                      {feature.title}
-                    </p>
-                    <p
-                      className={`text-[clamp(0.85rem,1.2vw,1rem)] leading-relaxed ${descOpacityClass}`}
-                    >
-                      {feature.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </StorySection>
-          );
-        })}
-      </StoryScroll>
-    </div>
+      {/* Description */}
+      <p className="text-[clamp(0.85rem,1.1vw,0.95rem)] leading-relaxed text-white/50">
+        {service.description}
+      </p>
+
+      {/* Know more link */}
+      <a
+        href="#contato"
+        className="group/link inline-flex items-center gap-2 text-sm font-medium uppercase tracking-[0.15em] text-white/40 transition-colors duration-200 hover:text-primary"
+      >
+        Saiba mais
+        <span className="block h-px w-8 bg-current transition-all duration-300 group-hover/link:w-14" />
+      </a>
+    </motion.div>
   );
 }

@@ -305,7 +305,7 @@ export function CTASection() {
                   contato@connexmkt.com.br
                 </a>
                 <a
-                  href="https://instagram.com/connexmkt"
+                  href="https://instagram.com/connex.mkt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 text-neutral-400 hover:text-white hover:bg-white/15 transition"

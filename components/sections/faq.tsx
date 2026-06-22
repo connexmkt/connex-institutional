@@ -40,7 +40,7 @@ const faqItems: FaqItem[] = [
     id: "item-6",
     title: "Como acompanho os resultados?",
     content:
-      "Desde a primeira semana, nossa equip começa a monitorar os resultados e a ajustar a estratégia conforme necessário. Após a segunda semana, você recebe um painel com os resultados e acompanhamento semanal.",
+      "Desde a primeira semana, nossa equipe começa a monitorar os resultados e a ajustar a estratégia conforme necessário. Após a segunda semana, você recebe um painel com os resultados e acompanhamento semanal.",
   },
 ];
 

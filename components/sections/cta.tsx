@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   TrendingDown,
   Clock,
+  Phone,
 } from "lucide-react";
 
 // TODO: substituir por número real de vagas disponíveis no mês
@@ -239,7 +240,7 @@ export function CTASection() {
                   className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-white font-semibold hover:bg-primary/90 transition disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-primary/20"
                 >
                   <span>
-                    {isSubmitting ? "Enviando..." : "Quero garantir minha vaga"}
+                    {isSubmitting ? "Enviando..." : "Entrar em contato"}
                   </span>
                   {!isSubmitting && <Send className="h-4 w-4" />}
                 </button>
@@ -281,14 +282,18 @@ export function CTASection() {
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-white mb-1">
-                    Garantia de resultado
+                    Processo contínuo
                   </h3>
                   <p className="text-sm text-neutral-400 leading-relaxed">
-                    Primeiros resultados em{" "}
+                    Acompanhamento{" "}
                     <span className="text-neutral-200 font-medium">
-                      4 semanas
+                      contínuo
                     </span>{" "}
-                    ou ajustamos a estratégia sem nenhum custo adicional.
+                    e ajuste de rota{" "}
+                    <span className="text-neutral-200 font-medium">
+                      em tempo real.
+                    </span>{" "}
+                    Você nunca fica no escuro sobre o que está sendo feito e o porquê.
                   </p>
                 </div>
               </div>
@@ -298,20 +303,36 @@ export function CTASection() {
             <div className="relative rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
               <div className="flex items-center justify-between">
                 <a
-                  href="mailto:contato@connexmkt.com.br"
-                  className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
-                >
-                  <Mail className="h-4 w-4" />
-                  contato@connexmkt.com.br
-                </a>
-                <a
                   href="https://instagram.com/connex.mkt"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 text-neutral-400 hover:text-white hover:bg-white/15 transition"
+                  className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
                   aria-label="Instagram da Connex"
                 >
                   <Instagram className="w-4 h-4" />
+                  @connex.mkt
+                </a>
+              </div>
+            </div>
+            <div className="relative rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+              <div className="flex items-center justify-between">
+                <a
+                  href="mailto:agenciaconnex@gmail.com"
+                  className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
+                >
+                  <Mail className="h-4 w-4" />
+                  agenciaconnex@gmail.com
+                </a>
+              </div>
+            </div>
+            <div className="relative rounded-2xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+              <div className="flex items-center justify-between">
+                <a
+                  href="https://wa.me/558499757038"
+                  className="flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
+                >
+                  <Phone className="h-4 w-4" />
+                  WhatsApp
                 </a>
               </div>
             </div>

@@ -34,7 +34,7 @@ const steps = [
     title: "Produção",
     description:
       "Criação artesanal do SETUP completo: posicionamento, identidade digital e conteúdos. Cada peça passa por rodadas de revisão antes de ser publicada.",
-    metric: "+40h de produção por mês",
+    metric: "Design + Estratégia",
   },
   {
     number: "04",
@@ -92,7 +92,7 @@ export function MethodologySection() {
             </p>
           </motion.div>
 
-          {/* Effort Stats Strip */}
+          {/* Effort Stats Strip
           <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row mb-16 rounded-2xl bg-primary/5 border border-primary/10 overflow-hidden divide-y sm:divide-y-0 sm:divide-x divide-primary/10"
@@ -103,7 +103,7 @@ export function MethodologySection() {
                 <p className="text-xs text-muted-foreground mt-2 leading-snug">{stat.label}</p>
               </div>
             ))}
-          </motion.div>
+          </motion.div> */}
 
           {/* Steps */}
           <div className="relative">

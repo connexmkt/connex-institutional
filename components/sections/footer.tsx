@@ -7,7 +7,7 @@ import { Instagram, Mail, Phone, ArrowRight, ChevronUp } from "lucide-react";
 
 const navColumns = [
   {
-    title: "Fale Conosco",
+    title: "Entrar em contato",
     links: [
       { href: "mailto:agenciaconnex@gmail.com", label: "agenciaconnex@gmail.com" },
       { href: "https://wa.me/5584999999999", label: "Atendimento via WhatsApp" },

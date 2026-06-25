@@ -141,7 +141,7 @@ export function HeroSection() {
             className="mt-8"
           >
             <Link
-              href="#contato"
+              href="/#contato"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl text-base font-semibold text-white bg-primary shadow-[0_0_20px_rgba(91,95,232,0.6)] transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(91,95,232,0.8)] hover:scale-[1.03] active:scale-[0.98]"
             >
               Quero uma vaga

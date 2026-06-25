@@ -17,9 +17,6 @@ import {
   Phone,
 } from "lucide-react";
 
-// TODO: substituir por número real de vagas disponíveis no mês
-const VAGAS_RESTANTES = 3;
-
 const contatoSchema = z.object({
   nome: z.string().min(2, "Informe seu nome completo"),
   telefone: z.string().min(8, "Informe um telefone válido"),

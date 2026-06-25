@@ -10,7 +10,7 @@ const navColumns = [
     title: "Entrar em contato",
     links: [
       { href: "mailto:agenciaconnex@gmail.com", label: "agenciaconnex@gmail.com" },
-      { href: "https://wa.me/5584999999999", label: "Atendimento via WhatsApp" },
+      { href: "https://wa.me/558499757038", label: "Atendimento via WhatsApp" },
     ],
   },
   {
@@ -26,11 +26,9 @@ const navColumns = [
   {
     title: "Empresa",
     links: [
-      { href: "#historia", label: "Nossa História" },
+      { href: "/about", label: "Nossa História" },
       { href: "#metodologia", label: "Metodologia" },
       { href: "#cronograma", label: "Cronograma" },
-      { href: "#provas", label: "Cases & Resultados" },
-      { href: "#planos", label: "Planos" },
       { href: "#faq", label: "FAQ" },
     ],
   },
@@ -39,7 +37,7 @@ const navColumns = [
 const socialLinks = [
   { href: "https://www.instagram.com/connex.mkt/", icon: Instagram, label: "Instagram" },
   { href: "mailto:agenciaconnex@gmail.com", icon: Mail, label: "Email" },
-  { href: "https://wa.me/5584999999999", icon: Phone, label: "WhatsApp" },
+  { href: "https://wa.me/558499757038", icon: Phone, label: "WhatsApp" },
 ];
 
 function AccordionColumn({ title, links }: { title: string; links: { href: string; label: string }[] }) {

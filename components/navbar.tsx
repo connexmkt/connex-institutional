@@ -8,10 +8,8 @@ import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { href: "#servicos", label: "Serviços" },
-  { href: "#historia", label: "História" },
+  { href: "/about", label: "História" },
   { href: "#metodologia", label: "Metodologia" },
-  { href: "#provas", label: "Cases" },
-  { href: "#planos", label: "Planos" },
 ];
 
 export function Navbar() {

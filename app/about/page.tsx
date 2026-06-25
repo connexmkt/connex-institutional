@@ -213,8 +213,8 @@ export default function AboutPage() {
                 variants={fadeUp}
                 className="text-muted-foreground text-lg max-w-2xl mx-auto"
               >
-                A interseção entre marketing e tecnologia não é um
-                detalhe da nossa história. É o nosso método.
+                A interseção entre marketing e tecnologia não é um detalhe da
+                nossa história. É o nosso método.
               </motion.p>
             </div>
 
@@ -269,24 +269,22 @@ export default function AboutPage() {
                     variants={fadeUp}
                     className="text-muted-foreground text-lg leading-relaxed mb-6"
                   >
-                    Com sede em Natal/RN e presença em Brasília/DF, atendemos
-                    empresas que querem crescer com inteligência — independente
-                    do setor, do tamanho ou do momento em que estão.
+                    Nascemos em Natal/RN, chegamos a Brasília/DF e atuamos onde
+                    o seu negócio estiver.
                   </motion.p>
                   <motion.p
                     variants={fadeUp}
                     className="text-muted-foreground text-lg leading-relaxed"
                   >
-                    Nosso modelo permite trabalhar de forma presencial ou
-                    remota, adaptando a profundidade do serviço à realidade de
-                    cada cliente.
+                    Atuamos de forma presencial ou remota, moldando a
+                    profundidade do nosso trabalho à realidade de cada cliente.
                   </motion.p>
                 </div>
 
                 <motion.div variants={fadeUp} className="flex flex-col gap-4">
                   {[
-                    { city: "Natal", state: "RN", role: "Sede" },
-                    { city: "Brasília", state: "DF", role: "Presença" },
+                    { city: "Natal", state: "RN" },
+                    { city: "Brasília", state: "DF" },
                   ].map((loc) => (
                     <div
                       key={loc.city}
@@ -298,9 +296,6 @@ export default function AboutPage() {
                       <div>
                         <p className="font-semibold text-white text-lg">
                           {loc.city}/{loc.state}
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          {loc.role}
                         </p>
                       </div>
                     </div>
@@ -397,7 +392,7 @@ export default function AboutPage() {
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
                 <Button size="lg" className="px-10 text-base" asChild>
-                  <Link href="/#contato">Fale com a gente</Link>
+                  <Link href="/#contato">Entre em contato</Link>
                 </Button>
                 <Button
                   size="lg"

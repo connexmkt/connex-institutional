@@ -20,6 +20,9 @@ const VAGAS_DISPONIVEIS = 4;
 const HLS_SRC =
   "https://stream.mux.com/kimF2ha9zLrX64H00UgLGPflCzNtl1T0215MlAmeOztv8.m3u8";
 
+const VIDEO_POSTER =
+  "https://image.mux.com/kimF2ha9zLrX64H00UgLGPflCzNtl1T0215MlAmeOztv8/thumbnail.jpg?time=0&width=1920";
+
 type PhrasePart = { text: string; highlight: boolean };
 
 const PHRASES: PhrasePart[][] = [
@@ -42,6 +45,7 @@ const PHRASE_INTERVAL_MS = 3500;
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [phraseIndex, setPhraseIndex] = useState(0);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -80,7 +84,14 @@ export function HeroSection() {
         muted
         loop
         playsInline
+        poster={VIDEO_POSTER}
+        onCanPlay={() => setVideoReady(true)}
         className="absolute top-0 left-0 w-full h-full object-cover object-right z-0 scale-110 transform-gpu"
+      />
+
+      <div
+        className="absolute inset-0 z-[1] bg-black transition-opacity duration-700 pointer-events-none"
+        style={{ opacity: videoReady ? 0 : 1 }}
       />
 
       <div className="absolute inset-x-0 top-0 h-[22%] bg-gradient-to-b from-black via-black/75 to-transparent z-[5] pointer-events-none" />
@@ -144,7 +155,7 @@ export function HeroSection() {
               href="/#contato"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl text-base font-semibold text-white bg-primary shadow-[0_0_20px_rgba(91,95,232,0.6)] transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(91,95,232,0.8)] hover:scale-[1.03] active:scale-[0.98]"
             >
-              Quero uma vaga
+              Entre em contato
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>

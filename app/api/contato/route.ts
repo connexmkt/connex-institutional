@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import { createAdminClient } from "@/utils/supabase/admin";
 
 const contatoSchema = z.object({
@@ -30,15 +30,7 @@ async function notificarIntegrantes(
 
   if (!destinatarios.length) return;
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT ?? 465),
-    secure: Number(process.env.SMTP_PORT ?? 465) === 465,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const html = `
     <h2>Novo lead recebido pelo site</h2>
@@ -50,12 +42,16 @@ async function notificarIntegrantes(
     </table>
   `;
 
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM ?? "Connex <noreply@connex.com.br>",
+  const { error } = await resend.emails.send({
+    from: "Connex <noreply@connexmkt.com.br>",
     to: destinatarios,
     subject: `Novo lead recebido pelo site — ${nome}`,
     html,
   });
+
+  if (error) {
+    throw new Error(`Resend error: ${error.message}`);
+  }
 }
 
 export async function POST(request: Request) {

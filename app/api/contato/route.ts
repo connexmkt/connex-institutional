@@ -10,26 +10,18 @@ const contatoSchema = z.object({
   dificuldade: z.string().optional(),
 });
 
+const DESTINATARIOS = [
+  "henriquepennalima@gmail.com",
+  "luizfernandosant26@gmail.com",
+  "rodrigodnfilho@gmail.com",
+];
+
 async function notificarIntegrantes(
   nome: string,
   telefone: string,
   email: string,
   dificuldade?: string,
 ) {
-  const supabase = createAdminClient();
-  const { data, error: authError } = await supabase.auth.admin.listUsers();
-
-  if (authError || !data?.users?.length) {
-    console.error("[api/contato] Erro ao buscar usuários:", authError);
-    return;
-  }
-
-  const destinatarios = data.users
-    .map((u) => u.email)
-    .filter((e): e is string => !!e);
-
-  if (!destinatarios.length) return;
-
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   const html = `
@@ -43,8 +35,8 @@ async function notificarIntegrantes(
   `;
 
   const { error } = await resend.emails.send({
-    from: "Connex <noreply@connexmkt.com.br>",
-    to: destinatarios,
+    from: "Connex <onboarding@resend.dev>",
+    to: DESTINATARIOS,
     subject: `Novo lead recebido pelo site — ${nome}`,
     html,
   });

@@ -35,7 +35,7 @@ async function notificarIntegrantes(
   `;
 
   const { error } = await resend.emails.send({
-    from: "Connex <onboarding@resend.dev>",
+    from: "Connex <noreply@connexmkt.com.br>",
     to: DESTINATARIOS,
     subject: `Novo lead recebido pelo site — ${nome}`,
     html,

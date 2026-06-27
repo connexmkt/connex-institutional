@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Hls from "hls.js";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 // TODO: substituir pelo número real de vagas disponíveis este mês
 const VAGAS_DISPONIVEIS = 4;
@@ -42,33 +42,55 @@ const PHRASES: PhrasePart[][] = [
 
 const PHRASE_INTERVAL_MS = 3500;
 
+function tryPlayVideo(video: HTMLVideoElement) {
+  void video.play().catch(() => {
+    // Autoplay bloqueado pelo navegador — poster permanece visível
+  });
+}
+
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [videoReady, setVideoReady] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    let hls: Hls | null = null;
+
+    const markReady = () => setVideoReady(true);
+
+    const onReady = () => {
+      markReady();
+      if (!prefersReducedMotion) tryPlayVideo(video);
+    };
 
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = HLS_SRC;
-      if (mq.matches) video.pause();
+      video.addEventListener("loadedmetadata", onReady, { once: true });
     } else if (Hls.isSupported()) {
-      const hls = new Hls();
+      hls = new Hls();
       hls.loadSource(HLS_SRC);
       hls.attachMedia(video);
-      if (mq.matches) hls.on(Hls.Events.MANIFEST_PARSED, () => video.pause());
-      return () => hls.destroy();
+      hls.on(Hls.Events.MANIFEST_PARSED, onReady);
+      hls.on(Hls.Events.ERROR, (_event, data) => {
+        if (data.fatal) markReady();
+      });
     }
+
+    return () => {
+      video.removeEventListener("loadedmetadata", onReady);
+      hls?.destroy();
+    };
   }, []);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mq.matches) return;
-
     const timer = setInterval(() => {
       setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
     }, PHRASE_INTERVAL_MS);
@@ -113,10 +135,13 @@ export function HeroSection() {
             <AnimatePresence mode="wait">
               <motion.h1
                 key={phraseIndex}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.45, ease: "easeInOut" }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
+                transition={{
+                  duration: shouldReduceMotion ? 0.2 : 0.45,
+                  ease: "easeInOut",
+                }}
                 className="text-3xl md:text-4xl lg:text-5xl font-sans font-semibold text-white leading-tight tracking-tight [text-shadow:0_2px_12px_rgba(0,0,0,0.8)] text-balance"
               >
                 {PHRASES[phraseIndex].map((part, i) =>

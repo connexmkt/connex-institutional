@@ -7,16 +7,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-// TODO: substituir pelo número real de vagas disponíveis este mês
-const VAGAS_DISPONIVEIS = 4;
-
-// TODO: substituir pelos números reais de clientes, projetos e anos
-// const CREDIBILITY_STATS = [
-//   { value: "30+", label: "clientes ativos" },
-//   { value: "120+", label: "projetos entregues" },
-//   { value: "5+", label: "anos de mercado" },
-// ];
-
 const HLS_SRC =
   "https://stream.mux.com/kimF2ha9zLrX64H00UgLGPflCzNtl1T0215MlAmeOztv8.m3u8";
 

@@ -58,6 +58,9 @@ export function HeroSection() {
     const video = videoRef.current;
     if (!video) return;
 
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    if (isMobile) return;
+
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -100,6 +103,16 @@ export function HeroSection() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden rounded-bl-[2.5rem] rounded-br-[2.5rem]">
+      <div className="absolute inset-0 z-0 md:hidden overflow-hidden">
+        <Image
+          src={VIDEO_POSTER}
+          alt=""
+          fill
+          priority
+          className="object-cover object-right scale-110 transform-gpu"
+        />
+      </div>
+
       <video
         ref={videoRef}
         autoPlay
@@ -108,11 +121,11 @@ export function HeroSection() {
         playsInline
         poster={VIDEO_POSTER}
         onCanPlay={() => setVideoReady(true)}
-        className="absolute top-0 left-0 w-full h-full object-cover object-right z-0 scale-110 transform-gpu"
+        className="hidden md:block absolute top-0 left-0 w-full h-full object-cover object-right z-0 scale-110 transform-gpu"
       />
 
       <div
-        className="absolute inset-0 z-[1] bg-black transition-opacity duration-700 pointer-events-none"
+        className="hidden md:block absolute inset-0 z-[1] bg-black transition-opacity duration-700 pointer-events-none"
         style={{ opacity: videoReady ? 0 : 1 }}
       />
 

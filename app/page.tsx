@@ -5,6 +5,7 @@ import { StorySection } from "@/components/sections/story";
 import { MethodologySection } from "@/components/sections/methodology";
 import { TimelineSection } from "@/components/sections/timeline";
 import { ResultsSection } from "@/components/sections/results";
+import { ClientsSection } from "@/components/sections/clients";
 import { ProofSection } from "@/components/sections/proof";
 import { PricingSection } from "@/components/sections/pricing";
 import { FAQSection } from "@/components/sections/faq";
@@ -22,6 +23,7 @@ export default function Home() {
         <MethodologySection />
         <TimelineSection />
         <ResultsSection />
+        <ClientsSection />
         <ProofSection />
         <PricingSection />
         <FAQSection />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Hls from "hls.js";
 import Image from "next/image";
@@ -32,17 +32,78 @@ const PHRASES: PhrasePart[][] = [
 
 const PHRASE_INTERVAL_MS = 3500;
 
+const headlineClassName =
+  "text-3xl md:text-4xl lg:text-5xl font-sans font-semibold text-white leading-tight tracking-tight [text-shadow:0_2px_12px_rgba(0,0,0,0.8)] text-balance";
+
 function tryPlayVideo(video: HTMLVideoElement) {
   void video.play().catch(() => {
     // Autoplay bloqueado pelo navegador — poster permanece visível
   });
 }
 
+function HeadlineParts({ parts }: { parts: PhrasePart[] }) {
+  return parts.map((part, i) =>
+    part.highlight ? (
+      <span
+        key={i}
+        className="text-primary [text-shadow:0_0_20px_rgba(91,95,232,0.5)]"
+      >
+        {part.text}
+      </span>
+    ) : (
+      <span key={i}>{part.text}</span>
+    ),
+  );
+}
+
+function HeroFadeIn({
+  hasMounted,
+  yOffset,
+  duration,
+  delay,
+  className,
+  as = "div",
+  children,
+}: {
+  hasMounted: boolean;
+  yOffset: number;
+  duration: number;
+  delay: number;
+  className?: string;
+  as?: "div" | "p";
+  children: ReactNode;
+}) {
+  if (!hasMounted) {
+    if (as === "p") {
+      return <p className={className}>{children}</p>;
+    }
+    return <div className={className}>{children}</div>;
+  }
+
+  const MotionTag = as === "p" ? motion.p : motion.div;
+
+  return (
+    <MotionTag
+      initial={{ opacity: 0, y: yOffset }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration, delay }}
+      className={className}
+    >
+      {children}
+    </MotionTag>
+  );
+}
+
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [videoReady, setVideoReady] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -84,12 +145,16 @@ export function HeroSection() {
   }, []);
 
   useEffect(() => {
+    if (!hasMounted) return;
+
     const timer = setInterval(() => {
       setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
     }, PHRASE_INTERVAL_MS);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [hasMounted]);
+
+  const yOffset = shouldReduceMotion ? 0 : 20;
 
   return (
     <section className="relative w-full h-screen overflow-hidden rounded-bl-[2.5rem] rounded-br-[2.5rem]">
@@ -135,48 +200,46 @@ export function HeroSection() {
           />
 
           <div className="min-h-[4.5rem] md:min-h-[5.5rem] lg:min-h-[6.5rem] flex items-center justify-center w-full">
-            <AnimatePresence mode="wait">
-              <motion.h1
-                key={phraseIndex}
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
-                transition={{
-                  duration: shouldReduceMotion ? 0.2 : 0.45,
-                  ease: "easeInOut",
-                }}
-                className="text-3xl md:text-4xl lg:text-5xl font-sans font-semibold text-white leading-tight tracking-tight [text-shadow:0_2px_12px_rgba(0,0,0,0.8)] text-balance"
-              >
-                {PHRASES[phraseIndex].map((part, i) =>
-                  part.highlight ? (
-                    <span
-                      key={i}
-                      className="text-primary [text-shadow:0_0_20px_rgba(91,95,232,0.5)]"
-                    >
-                      {part.text}
-                    </span>
-                  ) : (
-                    <span key={i}>{part.text}</span>
-                  ),
-                )}
-              </motion.h1>
-            </AnimatePresence>
+            {hasMounted ? (
+              <AnimatePresence mode="wait">
+                <motion.h1
+                  key={phraseIndex}
+                  initial={{ opacity: 0, y: yOffset }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -yOffset }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0.2 : 0.45,
+                    ease: "easeInOut",
+                  }}
+                  className={headlineClassName}
+                >
+                  <HeadlineParts parts={PHRASES[phraseIndex]} />
+                </motion.h1>
+              </AnimatePresence>
+            ) : (
+              <h1 className={headlineClassName}>
+                <HeadlineParts parts={PHRASES[0]} />
+              </h1>
+            )}
           </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
+          <HeroFadeIn
+            hasMounted={hasMounted}
+            yOffset={yOffset}
+            duration={shouldReduceMotion ? 0.2 : 0.6}
+            delay={0.45}
             className="mt-4 text-base md:text-lg text-white/70 max-w-xl [text-shadow:0_1px_6px_rgba(0,0,0,0.9)] text-balance"
+            as="p"
           >
             Marketing pensado para{" "}
             <em className="not-italic text-white/90">o seu</em> negócio.
-          </motion.p>
+          </HeroFadeIn>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+          <HeroFadeIn
+            hasMounted={hasMounted}
+            yOffset={yOffset}
+            duration={shouldReduceMotion ? 0.2 : 0.6}
+            delay={0.6}
             className="mt-8"
           >
             <Link
@@ -186,25 +249,7 @@ export function HeroSection() {
               Entre em contato
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-10 flex items-center gap-6 flex-wrap justify-center"
-          >
-            {/* {CREDIBILITY_STATS.map((stat, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <span className="text-xl font-bold text-white [text-shadow:0_0_12px_rgba(0,0,0,1)]">
-                  {stat.value}
-                </span>
-                <span className="text-xs text-white/55 uppercase tracking-wider">
-                  {stat.label}
-                </span>
-              </div>
-            ))} */}
-          </motion.div>
+          </HeroFadeIn>
         </div>
       </div>
     </section>

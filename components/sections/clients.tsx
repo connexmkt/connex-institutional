@@ -24,6 +24,21 @@ const itemVariants = {
   },
 };
 
+const clients = [
+  {
+    name: "ICON Fitbrands",
+    alt: "Icon",
+    logo: "/icon-logo.jpg",
+    href: "https://www.instagram.com/icon.fitbrands/",
+  },
+  {
+    name: "Zeh Motoca",
+    alt: "Zeh Motoca",
+    logo: "/zehmotoca-logo.jpg",
+    href: "https://www.instagram.com/souzehmotoca/",
+  },
+];
+
 export function ClientsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -49,23 +64,26 @@ export function ClientsSection() {
 
           <motion.div
             variants={itemVariants}
-            className="flex items-center justify-center"
+            className="flex flex-wrap items-center justify-center gap-10 md:gap-16"
           >
-            <Link
-              href="https://www.instagram.com/icon.fitbrands/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-opacity hover:opacity-80 flex flex-col items-center justify-center"
-            >
-              <Image
-                src="/icon-logo.jpg"
-                alt="Icon"
-                width={160}
-                height={160}
-                className="rounded-2xl"
-              />
-              <p className="font-bold font-montserrat">ICON Fitbrands</p>
-            </Link>
+            {clients.map((client) => (
+              <Link
+                key={client.name}
+                href={client.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-opacity hover:opacity-80 flex flex-col items-center justify-center"
+              >
+                <Image
+                  src={client.logo}
+                  alt={client.alt}
+                  width={160}
+                  height={160}
+                  className="rounded-2xl"
+                />
+                <p className="font-bold font-montserrat mt-3">{client.name}</p>
+              </Link>
+            ))}
           </motion.div>
         </motion.div>
       </div>

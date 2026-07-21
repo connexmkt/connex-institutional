@@ -158,6 +158,7 @@ export function HeroSection() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden rounded-bl-[2.5rem] rounded-br-[2.5rem]">
+      <meta name="facebook-domain-verification" content="lyug24glfl4qf0dejym32qrbb4zev0" />
       <div className="absolute inset-0 z-0 md:hidden overflow-hidden">
         <Image
           src={VIDEO_POSTER}

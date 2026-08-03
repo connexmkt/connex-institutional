@@ -89,6 +89,7 @@ export function CTASection() {
           height="100%"
           title="Connex background"
           tabIndex={-1}
+          loading="lazy"
         />
       </div>
 

@@ -58,7 +58,7 @@ const cases = [
     stat: "100",
     title: "leads gerados",
     description:
-      "Resultado obtido via tráfego pago, com conteúdo posicionado para a demanda real de quem procura advogado.",
+      "Resultado obtido em apenas 1 semana e pouco investimento.",
   },
   {
     logo: "/otocentro-logo.jpg",

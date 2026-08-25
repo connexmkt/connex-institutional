@@ -27,6 +27,7 @@ const navColumns = [
     title: "Empresa",
     links: [
       { href: "/about", label: "Nossa História" },
+      { href: "/resultados", label: "Resultados" },
       { href: "#metodologia", label: "Metodologia" },
       { href: "#cronograma", label: "Cronograma" },
       { href: "#faq", label: "FAQ" },

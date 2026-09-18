@@ -43,7 +43,7 @@ const services: Service[] = [
   },
   {
     index: "06",
-    label: "Conexões Estratégicas",
+    label: "Conexões",
     description:
       "Conectamos você com clientes e parceiros do ecossistema Connex para gerar oportunidades reais de negócio.",
   },

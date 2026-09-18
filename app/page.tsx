@@ -3,9 +3,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { ServicesSection } from "@/components/sections/services";
 import { StorySection } from "@/components/sections/story";
 import { MethodologySection } from "@/components/sections/methodology";
-import { TimelineSection } from "@/components/sections/timeline";
-import { ResultsSection } from "@/components/sections/results";
-import { ClientsSection } from "@/components/sections/clients";
+import { CasesTeaserSection } from "@/components/sections/cases-teaser";
 import { ProofSection } from "@/components/sections/proof";
 import { PricingSection } from "@/components/sections/pricing";
 import { FAQSection } from "@/components/sections/faq";
@@ -21,9 +19,7 @@ export default function Home() {
         <ServicesSection />
         <StorySection />
         <MethodologySection />
-        <TimelineSection />
-        <ResultsSection />
-        <ClientsSection />
+        <CasesTeaserSection />
         <ProofSection />
         <PricingSection />
         <FAQSection />

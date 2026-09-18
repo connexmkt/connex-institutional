@@ -1,9 +1,14 @@
 "use client";
 
-import { Faqs, FaqItem } from "@/components/ui/faqs";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
+import { ArrowDownRight } from "lucide-react";
+
+type FaqItem = {
+  id: string;
+  title: string;
+  content: string;
+};
 
 const faqItems: FaqItem[] = [
   {
@@ -44,32 +49,100 @@ const faqItems: FaqItem[] = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 },
+  },
+};
+
 export function FAQSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [open, setOpen] = useState<string | null>("item-1");
+
+  const toggle = (id: string) => {
+    setOpen((current) => (current === id ? null : id));
+  };
 
   return (
-    <section id="faq" className="py-16 md:py-24">
+    <section
+      id="faq"
+      className="relative overflow-hidden bg-[#161622] px-6 py-24 sm:px-12 sm:py-28 lg:px-24 lg:py-32"
+    >
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 40 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="container mx-auto flex flex-col items-center"
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        variants={containerVariants}
+        className="relative mx-auto max-w-6xl"
       >
-        <Faqs
-          title="Perguntas Frequentes"
-          description="Respondemos as dúvidas mais comuns sobre como a Connex pode ajudar o seu negócio a crescer."
-          items={faqItems}
-          supportText={
-            <>
-              Não encontrou o que procurava?{" "}
-              <a href="#contato" className="text-primary hover:underline">
-                Entre em contato com nosso time
-              </a>
-            </>
-          }
-        />
+        <motion.div variants={itemVariants} className="flex flex-col gap-10">
+          <div className="flex items-center gap-3">
+            <h2 className="text-3xl font-extrabold uppercase tracking-tight text-white sm:text-4xl">
+              FAQ
+            </h2>
+            <ArrowDownRight className="h-6 w-6 text-white" strokeWidth={1.8} />
+          </div>
+
+          <div className="flex flex-col">
+            {faqItems.map((item) => {
+              const isOpen = open === item.id;
+              return (
+                <div key={item.id} className="border-t border-white/[0.09]">
+                  <button
+                    type="button"
+                    onClick={() => toggle(item.id)}
+                    className="flex w-full items-baseline gap-4 px-1 py-[22px] text-left"
+                  >
+                    <span
+                      className={`w-4 shrink-0 text-[22px] leading-none ${
+                        isOpen ? "font-medium text-primary" : "font-normal text-white/65"
+                      }`}
+                    >
+                      {isOpen ? "−" : "+"}
+                    </span>
+                    <span
+                      className={`text-lg font-bold uppercase tracking-wide text-balance sm:text-xl ${
+                        isOpen ? "text-primary" : "text-white"
+                      }`}
+                    >
+                      {item.title}
+                    </span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.28, ease: "easeOut" }}
+                        className="max-w-[70ch] py-0 pb-[26px] pr-1 pl-[34px]"
+                      >
+                        <p className="text-sm leading-relaxed text-white/60">
+                          {item.content}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+            <div className="border-t border-white/[0.09]" />
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );
